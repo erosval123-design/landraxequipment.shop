@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checkout — LandRaxx</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#0b0f0d;--bg-2:#111a14;--bg-3:#162119;
+  --ink:#f0f5f1;--ink-2:#9bb39e;--ink-3:#6a8a6e;
+  --brand:#a3e635;--line:#2a3d2e;--red:#ef4444;
+  --head:'Barlow Condensed',sans-serif;--body:'Inter',sans-serif;
+  --radius:14px;
+}
+*,::before,::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1rem;line-height:1.6;min-height:100vh}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:880px;margin:0 auto;padding:0 1.2rem}
+.site-header{background:var(--bg-2);border-bottom:1px solid var(--line);padding:.9rem 0}
+.site-header .wrap{max-width:1180px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.site-logo{font-family:var(--head);font-size:1.9rem;font-weight:800;color:var(--brand);letter-spacing:.02em}
+.nav-links{display:flex;gap:1.2rem;align-items:center;font-size:.9rem;font-weight:600}
+.nav-links a{color:var(--ink-2)}
+.nav-links a:hover{color:var(--ink)}
+.cart-badge{background:var(--brand);color:#0b0f0d;border-radius:999px;padding:.1rem .45rem;font-size:.7rem;font-weight:800;margin-left:.3rem;vertical-align:middle}
+.checkout-layout{display:grid;grid-template-columns:1fr 360px;gap:2.4rem;align-items:start;padding:2.5rem 0 4rem}
+@media(max-width:820px){.checkout-layout{grid-template-columns:1fr}}
+h1{font-family:var(--head);font-size:2.5rem;font-weight:800;margin-bottom:.8rem;line-height:1.05}
+.muted{color:var(--ink-2);font-size:.95rem;margin-bottom:1.5rem;line-height:1.6}
+.order-card{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem}
+.order-card h2{font-family:var(--head);font-size:1.5rem;font-weight:800;margin-bottom:1rem}
+.order-item{display:flex;justify-content:space-between;align-items:baseline;padding:.4rem 0;border-bottom:1px solid var(--line);font-size:.95rem}
+.order-item:last-child{border-bottom:none}
+.order-total{display:flex;justify-content:space-between;align-items:baseline;padding:.8rem 0 0;font-weight:700;font-size:1.05rem}
+.order-total .val{font-family:var(--head);font-size:2rem;color:var(--brand)}
+.delivery-note{font-size:.85rem;color:var(--ink-3);margin:.5rem 0 1rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:800;font-size:1.2rem;letter-spacing:.04em;text-transform:uppercase;border:none;border-radius:999px;padding:1.1rem 2rem;cursor:pointer;transition:.15s;text-decoration:none;width:100%}
+.btn--primary{background:var(--brand);color:#0b0f0d}
+.btn--primary:hover{background:#bef264}
+.btn--primary:disabled{opacity:.5;cursor:not-allowed}
+.formnote{font-size:.82rem;color:var(--ink-3);margin:.8rem 0 0;text-align:center;line-height:1.5}
+.paylist{list-style:none;margin:1.5rem 0 0;display:grid;gap:.5rem}
+.paylist li{display:flex;align-items:flex-start;gap:.6rem;font-size:.9rem;color:var(--ink-2)}
+.paylist li::before{content:'✓';color:var(--brand);font-weight:700;flex-shrink:0}
+.trust-badges{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.8rem}
+.trust-badge{background:var(--bg-2);border:1px solid var(--line);border-radius:10px;padding:.6rem 1rem;font-size:.82rem;color:var(--ink-2);display:flex;align-items:center;gap:.5rem}
+.empty-msg{color:var(--ink-2);padding:2rem 0}
+.site-footer{border-top:1px solid var(--line);padding:2rem 0;color:var(--ink-3);font-size:.85rem;text-align:center}
+</style>
+<script src="assets/js/catalogue.js" defer></script>
+<script src="assets/js/site-config.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="site-logo">LandRaxx</a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="cart.html">Basket <span class="cart-badge cart-count" style="display:none"></span></a>
+    </nav>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+    <div class="checkout-layout">
+      <div>
+        <h1>Checkout</h1>
+        <p class="muted">Payment is handled by Stripe. You will enter your delivery address, contact details and card on Stripe&#8217;s secure page &mdash; no card details are entered on or stored by this website.</p>
+        <div id="emptyCart" style="display:none">
+          <p class="empty-msg">Your basket is empty. <a href="index.html">Browse machines →</a></p>
+        </div>
+        <div id="paySection">
+          <button class="btn btn--primary" id="payBtn" disabled>Pay securely with Stripe</button>
+          <p class="formnote">You will be taken to Stripe to complete payment. Your order is not placed until payment succeeds. Stripe collects your delivery address there.</p>
+          <ul class="paylist">
+            <li>Card, Apple Pay and Google Pay accepted</li>
+            <li>Payment taken in full at checkout &mdash; no deposits, no recurring charges</li>
+            <li>An invoice is emailed with your dispatch confirmation</li>
+          </ul>
+          <div class="trust-badges">
+            <div class="trust-badge">🔒 Stripe Secure</div>
+            <div class="trust-badge">🛡 SSL Encrypted</div>
+            <div class="trust-badge">↩ 30-Day Returns</div>
+          </div>
+        </div>
+      </div>
+      <div class="order-card">
+        <h2>Order Summary</h2>
+        <div id="orderRows"><p style="color:var(--ink-3);font-size:.9rem">Loading…</p></div>
+        <div class="order-total">
+          <span>Total</span>
+          <span class="val" id="orderTotal">$0</span>
+        </div>
+        <p class="delivery-note">Free delivery to the continental US.</p>
+        <a href="cart.html" style="font-size:.85rem;color:var(--ink-3);display:block;text-align:center;margin-top:.5rem">← Edit basket</a>
+      </div>
+    </div>
+  </div>
+</main>
+<footer class="site-footer"><div class="wrap">&copy; 2025 LandRaxx. All rights reserved.</div></footer>
+<script>
+var CART_KEY = 'basket.v1';
+function getCart(){try{return JSON.parse(localStorage.getItem(CART_KEY)||'[]');}catch(e){return[];}}
+function fmt(p){return '$'+p.toLocaleString('en-US');}
+
+function init() {
+  var items = getCart();
+  var cat = window.CATALOGUE || {};
+  var cfg = window.SITE_CONFIG || {};
+  var links = cfg.paymentLinks || {};
+
+  // Update badge
+  var n = items.reduce(function(a,i){return a+(i.qty||1);},0);
+  document.querySelectorAll('.cart-count').forEach(function(el){
+    el.textContent = n>0?n:''; el.style.display=n>0?'inline-flex':'none';
+  });
+
+  if (!items.length) {
+    document.getElementById('emptyCart').style.display='block';
+    document.getElementById('paySection').style.display='none';
+    document.getElementById('orderRows').innerHTML='<p style="color:var(--ink-3);font-size:.9rem">No items</p>';
+    return;
+  }
+
+  var total = 0;
+  var rowsHtml = '';
+  items.forEach(function(item){
+    var prod = cat[item.sku]||{};
+    var price = item.price||prod.price||0;
+    total += price*(item.qty||1);
+    rowsHtml += '<div class="order-item"><span>'+item.name+' &times;'+(item.qty||1)+'</span><span>'+fmt(price*(item.qty||1))+'</span></div>';
+  });
+  rowsHtml += '<div class="order-item"><span>Delivery</span><span style="color:var(--brand)">Free</span></div>';
+  document.getElementById('orderRows').innerHTML = rowsHtml;
+  document.getElementById('orderTotal').textContent = fmt(total);
+
+  var payBtn = document.getElementById('payBtn');
+  payBtn.disabled = false;
+  payBtn.addEventListener('click', function(){
+    // Single item → use its Payment Link
+    var link = items.length===1 ? (links[items[0].sku]||'').trim() : '';
+    if (link) {
+      var url = link + (link.indexOf('?')===-1?'?':'&') + 'client_reference_id=' + encodeURIComponent(items[0].sku);
+      window.location.href = url;
+    } else {
+      // Multi-item or no Payment Link → use first item's link or fallback to Netlify Function
+      var first = items[0];
+      var prod = cat[first.sku]||{};
+      payBtn.disabled=true; payBtn.textContent='Processing…';
+      fetch('/api/create-checkout',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({productId:first.sku,productName:prod.name||first.name,price:prod.price||first.price||0})
+      }).then(function(r){return r.json();})
+        .then(function(d){if(d.url){window.location.href=d.url;}else{throw new Error(d.error||'No URL');};})
+        .catch(function(err){
+          payBtn.disabled=false; payBtn.textContent='Pay securely with Stripe';
+          alert('Checkout error: '+(err.message||'Please try again.'));
+        });
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function(){ setTimeout(init,100); });
+</script>
+</body>
+</html>

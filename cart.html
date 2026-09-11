@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Basket — LandRaxx</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root {
+  --bg:#0b0f0d;--bg-2:#111a14;--bg-3:#162119;
+  --ink:#f0f5f1;--ink-2:#9bb39e;--ink-3:#6a8a6e;
+  --brand:#a3e635;--line:#2a3d2e;--red:#ef4444;
+  --head:'Barlow Condensed',sans-serif;--body:'Inter',sans-serif;
+  --radius:14px;
+}
+*,::before,::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1rem;line-height:1.6;min-height:100vh}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1180px;margin:0 auto;padding:0 1.2rem}
+.site-header{background:var(--bg-2);border-bottom:1px solid var(--line);padding:.9rem 0}
+.site-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.site-logo{font-family:var(--head);font-size:1.9rem;font-weight:800;color:var(--brand);letter-spacing:.02em}
+.nav-links{display:flex;gap:1.2rem;align-items:center;font-size:.9rem;font-weight:600}
+.nav-links a{color:var(--ink-2)}
+.nav-links a:hover{color:var(--ink)}
+.cart-badge{background:var(--brand);color:#0b0f0d;border-radius:999px;padding:.1rem .45rem;font-size:.7rem;font-weight:800;margin-left:.3rem;vertical-align:middle}
+.cartlayout{display:grid;grid-template-columns:1fr 380px;gap:2.4rem;align-items:start;padding:2.5rem 0 4rem}
+@media(max-width:860px){.cartlayout{grid-template-columns:1fr}}
+h1{font-family:var(--head);font-size:2.5rem;font-weight:800;margin-bottom:1.4rem;line-height:1.05}
+.empty-msg{color:var(--ink-2);padding:2rem 0}
+.cart-items{display:grid;gap:1rem}
+.cart-item{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:1.2rem;display:flex;gap:1.2rem;align-items:flex-start}
+.cart-item img{width:110px;height:70px;object-fit:cover;border-radius:9px;flex-shrink:0;background:var(--bg-3)}
+.cart-item__info{flex:1}
+.cart-item__name{font-weight:700;font-size:1.05rem;margin-bottom:.3rem}
+.cart-item__price{color:var(--brand);font-family:var(--head);font-size:1.5rem;font-weight:700}
+.cart-item__controls{display:flex;align-items:center;gap:.7rem;margin-top:.6rem}
+.qty-btn{background:var(--bg-3);border:1px solid var(--line);color:var(--ink);width:30px;height:30px;border-radius:6px;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center}
+.qty-display{font-weight:700;min-width:28px;text-align:center}
+.remove-btn{margin-left:auto;background:transparent;border:none;color:var(--ink-3);cursor:pointer;font-size:.85rem;text-decoration:underline}
+.remove-btn:hover{color:var(--red)}
+.order-summary{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem;position:sticky;top:96px}
+.order-summary h2{font-family:var(--head);font-size:1.6rem;font-weight:800;margin-bottom:1.2rem}
+.summary-row{display:flex;justify-content:space-between;align-items:baseline;padding:.45rem 0;border-bottom:1px solid var(--line);font-size:.95rem;color:var(--ink-2)}
+.summary-row:last-child{border-bottom:none}
+.summary-total{font-size:1.2rem;font-weight:700;color:var(--ink)}
+.summary-total .val{font-family:var(--head);font-size:2rem;color:var(--brand)}
+.btn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:800;font-size:1.1rem;letter-spacing:.04em;text-transform:uppercase;border:none;border-radius:999px;padding:.9rem 2rem;cursor:pointer;transition:.15s;text-decoration:none}
+.btn--primary{background:var(--brand);color:#0b0f0d}
+.btn--primary:hover{background:#bef264;text-decoration:none}
+.btn--ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.btn--ghost:hover{border-color:var(--brand);color:var(--brand);text-decoration:none}
+.btn--block{display:flex;width:100%;margin-top:1rem}
+.btn--lg{padding:1.1rem 2.4rem;font-size:1.15rem}
+.site-footer{border-top:1px solid var(--line);padding:2rem 0;color:var(--ink-3);font-size:.85rem;text-align:center}
+</style>
+<script src="assets/js/catalogue.js" defer></script>
+<script src="assets/js/site-config.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="site-logo">LandRaxx</a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="cart.html">Basket <span class="cart-badge cart-count" style="display:none"></span></a>
+    </nav>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+    <div class="cartlayout">
+      <div>
+        <h1>Your Basket</h1>
+        <div id="cartItems" class="cart-items">
+          <p class="empty-msg">Your basket is empty. <a href="index.html">Browse machines →</a></p>
+        </div>
+      </div>
+      <div class="order-summary" id="orderSummary" style="display:none">
+        <h2>Order Summary</h2>
+        <div id="summaryRows"></div>
+        <div class="summary-row summary-total" style="margin-top:.5rem;border-bottom:none">
+          <span>Total</span>
+          <span class="val" id="summaryTotal">$0</span>
+        </div>
+        <p style="font-size:.82rem;color:var(--ink-3);margin:.7rem 0 0">Free delivery to the continental US.</p>
+        <a href="checkout.html" class="btn btn--primary btn--lg btn--block">Proceed to Checkout →</a>
+        <a href="index.html" class="btn btn--ghost btn--block" style="margin-top:.5rem;font-size:.9rem">Continue Shopping</a>
+      </div>
+    </div>
+  </div>
+</main>
+<footer class="site-footer"><div class="wrap">&copy; 2025 LandRaxx. All rights reserved.</div></footer>
+<script>
+var CART_KEY = 'basket.v1';
+function getCart(){try{return JSON.parse(localStorage.getItem(CART_KEY)||'[]');}catch(e){return[];}}
+function saveCart(c){try{localStorage.setItem(CART_KEY,JSON.stringify(c));}catch(e){}}
+
+function fmt(p){return '$'+p.toLocaleString('en-US');}
+
+function renderCart() {
+  var items = getCart();
+  var cat = window.CATALOGUE || {};
+  var container = document.getElementById('cartItems');
+  var summary = document.getElementById('orderSummary');
+  var summaryRows = document.getElementById('summaryRows');
+  var totalEl = document.getElementById('summaryTotal');
+
+  // Update badge
+  var n = items.reduce(function(a,i){return a+(i.qty||1);},0);
+  document.querySelectorAll('.cart-count').forEach(function(el){
+    el.textContent = n>0?n:''; el.style.display=n>0?'inline-flex':'none';
+  });
+
+  if (!items.length) {
+    container.innerHTML = '<p class="empty-msg">Your basket is empty. <a href="index.html">Browse machines →</a></p>';
+    if(summary) summary.style.display='none';
+    return;
+  }
+
+  if(summary) summary.style.display='block';
+  var total = 0;
+  var html = '';
+  items.forEach(function(item, idx) {
+    var prod = cat[item.sku] || {};
+    var price = item.price || prod.price || 0;
+    var img = prod.img || 'https://placehold.co/110x70/162119/a3e635?text=Machine';
+    total += price * (item.qty||1);
+    html += '<div class="cart-item">'
+      + '<img src="'+img+'" alt="'+item.name+'" loading="lazy">'
+      + '<div class="cart-item__info">'
+      + '<div class="cart-item__name">'+item.name+'</div>'
+      + '<div class="cart-item__price">'+fmt(price)+'</div>'
+      + '<div class="cart-item__controls">'
+      + '<button class="qty-btn" onclick="changeQty('+idx+',-1)">−</button>'
+      + '<span class="qty-display">'+(item.qty||1)+'</span>'
+      + '<button class="qty-btn" onclick="changeQty('+idx+',1)">+</button>'
+      + '<button class="remove-btn" onclick="removeItem('+idx+')">Remove</button>'
+      + '</div></div></div>';
+  });
+  container.innerHTML = html;
+
+  // Summary rows
+  var rowsHtml = '';
+  items.forEach(function(item){
+    rowsHtml += '<div class="summary-row"><span>'+item.name+' &times;'+(item.qty||1)+'</span>'
+      + '<span>'+fmt((item.price||0)*(item.qty||1))+'</span></div>';
+  });
+  rowsHtml += '<div class="summary-row"><span>Delivery</span><span style="color:var(--brand)">Free</span></div>';
+  summaryRows.innerHTML = rowsHtml;
+  totalEl.textContent = fmt(total);
+}
+
+function changeQty(idx, delta) {
+  var items = getCart();
+  if (!items[idx]) return;
+  items[idx].qty = Math.max(1, (items[idx].qty||1) + delta);
+  saveCart(items);
+  renderCart();
+}
+function removeItem(idx) {
+  var items = getCart();
+  items.splice(idx,1);
+  saveCart(items);
+  renderCart();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Wait for CATALOGUE to load
+  setTimeout(renderCart, 100);
+});
+</script>
+</body>
+</html>
