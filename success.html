@@ -1,0 +1,30 @@
+<title>Order Confirmed — LandRaxx Equipment</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;background:#0d0d0d;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;text-align:center}
+  .wrap{max-width:480px}
+  .icon{font-size:64px;margin-bottom:24px;display:block}
+  h1{font-family:'Arial Black',sans-serif;font-size:32px;font-weight:900;margin-bottom:12px;color:#4ade80}
+  p{color:#888;font-size:16px;line-height:1.6;margin-bottom:32px}
+  .btn{display:inline-block;background:#C91B1B;color:#fff;text-decoration:none;padding:14px 32px;border-radius:8px;font-weight:700;font-size:15px}
+  .info{background:#111;border:1px solid #222;border-radius:12px;padding:20px;margin-bottom:24px;text-align:left}
+  .info p{color:#aaa;font-size:13px;margin-bottom:0}
+  .info strong{color:#fff}
+</style>
+<div class="wrap">
+  <span class="icon">✅</span>
+  <h1>Order Confirmed!</h1>
+  <div class="info">
+    <p><strong>What happens next:</strong></p>
+    <p style="margin-top:8px">• You'll receive an email confirmation from Stripe<br>
+    • Our team will contact you within 1 business day to confirm delivery details<br>
+    • Your machine ships within 1–3 business days<br>
+    • Estimated delivery: 7–12 business days after shipment</p>
+  </div>
+  <p>Questions? Email us at <strong>contact@landraxequipment.shop</strong></p>
+  <a href="/" class="btn">← Back to Store</a>
+</div>
+<script>
+  const p = new URLSearchParams(location.search).get('product');
+  if(p) document.querySelector('h1').insertAdjacentHTML('afterend', `<p style="color:#aaa;margin-bottom:16px;font-size:14px">Your <strong style="color:#fff">${p}</strong> order is confirmed.</p>`);
+</script>

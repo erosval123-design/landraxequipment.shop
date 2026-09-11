@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Store Control Room</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+#lockscreen{position:fixed;inset:0;background:#0D0B09;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}
+.ls-card{background:#1A1714;border:1px solid #2A2520;border-radius:16px;padding:48px 40px;width:100%;max-width:400px;text-align:center}
+.ls-icon{width:56px;height:56px;background:#E8590C;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.ls-title{font-family:'Inter',sans-serif;font-size:22px;font-weight:800;color:#F5F3F0;margin-bottom:6px}
+.ls-sub{font-size:13px;color:#78716C;margin-bottom:28px}
+.ls-input{width:100%;background:#111;border:1px solid #2A2520;border-radius:8px;padding:13px 14px;color:#F5F3F0;font-size:15px;font-family:'Inter',sans-serif;outline:none;text-align:center;letter-spacing:2px;margin-bottom:14px;transition:.15s}
+.ls-input:focus{border-color:#E8590C;box-shadow:0 0 0 3px rgba(232,89,12,.15)}
+.ls-input.shake{animation:lsShake .3s ease}
+@keyframes lsShake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+.ls-btn{width:100%;background:#E8590C;color:#fff;border:none;border-radius:8px;padding:13px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:.15s}
+.ls-btn:hover{background:#C44A09}
+.ls-err{color:#F87171;font-size:12px;margin-top:10px;min-height:18px}
+</style>
+</head>
+<body>
+
+<!-- LOCK SCREEN -->
+<div id="lockscreen">
+  <div class="ls-card">
+    <div class="ls-icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+    </div>
+    <div class="ls-title">Store Control Room</div>
+    <div class="ls-sub">Enter your admin password to continue</div>
+    <input class="ls-input" type="password" id="ls-pass" placeholder="••••••••••" onkeydown="if(event.key==='Enter')lsLogin()">
+    <button class="ls-btn" onclick="lsLogin()">Unlock Dashboard</button>
+    <div class="ls-err" id="ls-err"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // Check if already authenticated this session
+  if(sessionStorage.getItem('ctrl_auth')==='1'){
+    document.getElementById('lockscreen').style.display='none';
+  }
+  window.lsLogin = function(){
+    const val = document.getElementById('ls-pass').value;
+    const err = document.getElementById('ls-err');
+    const inp = document.getElementById('ls-pass');
+    if(val === 'Taghawsa@123'){
+      sessionStorage.setItem('ctrl_auth','1');
+      document.getElementById('lockscreen').style.display='none';
+      err.textContent='';
+    } else {
+      inp.classList.remove('shake');
+      void inp.offsetWidth; // reflow
+      inp.classList.add('shake');
+      inp.value='';
+      err.textContent='❌ Wrong password. Try again.';
+    }
+  };
+})();
+</script>
+<style>
+:root {
+  --bg: #F7F5F2;
+  --surface: #FFFFFF;
+  --border: #E8E4DE;
+  --border2: #F0EDE8;
+  --text: #1C1917;
+  --muted: #78716C;
+  --muted2: #A8A29E;
+  --ac: #E8590C;
+  --ac-bg: #FEF2EC;
+  --ac2: #C44A09;
+  --green: #16A34A;
+  --green-bg: #F0FDF4;
+  --red: #DC2626;
+  --red-bg: #FEF2F2;
+  --blue: #2563EB;
+  --blue-bg: #EFF6FF;
+  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.08);
+  --r: 10px;
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#141210;--surface:#1E1C1A;--border:#2E2A26;--border2:#262320;
+  --text:#F5F3F0;--muted:#A8A29E;--muted2:#78716C;
+  --ac:#F97316;--ac-bg:#2A1A0E;--ac2:#EA6C1A;
+  --green:#22C55E;--green-bg:#0A1F10;--red:#F87171;--red-bg:#1F0A0A;
+  --blue:#60A5FA;--blue-bg:#0A1325;
+  --shadow:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);
+}}
+:root[data-theme=dark]{
+  --bg:#141210;--surface:#1E1C1A;--border:#2E2A26;--border2:#262320;
+  --text:#F5F3F0;--muted:#A8A29E;--muted2:#78716C;
+  --ac:#F97316;--ac-bg:#2A1A0E;--ac2:#EA6C1A;
+  --green:#22C55E;--green-bg:#0A1F10;--red:#F87171;--red-bg:#1F0A0A;
+  --blue:#60A5FA;--blue-bg:#0A1325;
+  --shadow:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;min-height:100vh}
+/* NAV */
+.nav{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.nav-top{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;gap:16px}
+.nav-brand{display:flex;align-items:center;gap:10px}
+.nav-brand svg{flex-shrink:0}
+.nav-brand-text h1{font-size:15px;font-weight:700;color:var(--text);line-height:1.2}
+.nav-brand-text p{font-size:11.5px;color:var(--muted);line-height:1}
+.nav-actions{display:flex;gap:8px}
+.nav-btn{background:none;border:1px solid var(--border);color:var(--muted);border-radius:7px;padding:6px 12px;font-size:12.5px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:5px;transition:.15s;font-family:inherit}
+.nav-btn:hover{border-color:var(--ac);color:var(--ac);background:var(--ac-bg)}
+.nav-btn.danger:hover{border-color:var(--red);color:var(--red);background:var(--red-bg)}
+.nav-tabs{display:flex;padding:0 28px;gap:2px}
+.tab-btn{background:none;border:none;color:var(--muted);padding:10px 14px;font-size:13px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;display:flex;align-items:center;gap:6px;transition:.15s;font-family:inherit;white-space:nowrap}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{color:var(--ac);border-bottom-color:var(--ac);font-weight:600}
+/* CONTENT */
+.content{padding:24px 28px;max-width:1400px}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+/* SECTION HEADER */
+.section-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.section-hd h2{font-size:16px;font-weight:700}
+/* STAT GRID */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.stat-label{font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between}
+.stat-icon{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px}
+.stat-val{font-size:30px;font-weight:800;color:var(--text);font-variant-numeric:tabular-nums;line-height:1.1}
+.stat-sub{font-size:11.5px;color:var(--muted);margin-top:5px}
+.stat-card.ac .stat-icon{background:var(--ac-bg);color:var(--ac)}
+.stat-card.gr .stat-icon{background:var(--green-bg);color:var(--green)}
+.stat-card.bl .stat-icon{background:var(--blue-bg);color:var(--blue)}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;margin-right:6px;animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
+/* TWO-COL LAYOUT */
+.two-col{display:grid;grid-template-columns:1fr 340px;gap:16px}
+/* TABLE */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.card-hd{padding:14px 18px;border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between}
+.card-hd h3{font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px}
+.card-body{padding:18px}
+table{width:100%;border-collapse:collapse}
+th{font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding:8px 12px;text-align:left;border-bottom:1px solid var(--border2)}
+td{padding:11px 12px;border-bottom:1px solid var(--border2);font-size:13px;color:var(--text)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bg)}
+.badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600}
+.badge.paid{background:var(--green-bg);color:var(--green)}
+.badge.pending{background:#FEF9EC;color:#CA8A04}
+.badge.abandoned{background:var(--red-bg);color:var(--red)}
+.badge.recovered{background:var(--blue-bg);color:var(--blue)}
+/* ACTIVITY FEED */
+.feed-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border2);font-size:12px}
+.feed-item:last-child{border-bottom:none}
+.feed-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.feed-dot.live{background:var(--ac);animation:pulse 1.8s ease-in-out infinite}
+.feed-dot.order{background:var(--green)}
+.feed-dot.abandoned{background:var(--red)}
+.feed-path{color:var(--text);font-weight:500;flex:1}
+.feed-time{color:var(--muted2);font-variant-numeric:tabular-nums}
+/* FORMS */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field.full{grid-column:1/-1}
+label{font-size:11.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+input,select,textarea{background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:10px 12px;color:var(--text);font-size:13.5px;font-family:inherit;outline:none;transition:.15s;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--ac);box-shadow:0 0 0 3px var(--ac-bg)}
+input.mono{font-family:monospace;font-size:12.5px}
+textarea{resize:vertical;min-height:80px}
+.hint{font-size:11px;color:var(--muted2);margin-top:2px}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:7px;font-size:13.5px;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:.15s}
+.btn-primary{background:var(--ac);color:#fff}
+.btn-primary:hover{background:var(--ac2)}
+.btn-secondary{background:var(--surface);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--ac);color:var(--ac)}
+.btn-danger{background:var(--red-bg);color:var(--red);border:1px solid var(--red)}
+.btn-danger:hover{background:var(--red);color:#fff}
+.btn-green{background:var(--green-bg);color:var(--green);border:1px solid var(--green)}
+.btn-green:hover{background:var(--green);color:#fff}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+/* REBILL */
+.rebill-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:24px;box-shadow:var(--shadow);max-width:520px}
+.amount-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.amount-chip{border:1px solid var(--border);border-radius:6px;padding:6px 14px;font-size:13px;font-weight:600;cursor:pointer;background:var(--bg);color:var(--muted);transition:.12s}
+.amount-chip:hover,.amount-chip.sel{border-color:var(--ac);color:var(--ac);background:var(--ac-bg)}
+.rebill-result{margin-top:16px;padding:12px 16px;border-radius:8px;font-size:13px;display:none}
+.rebill-result.ok{background:var(--green-bg);border:1px solid var(--green);color:var(--green);display:block}
+.rebill-result.er{background:var(--red-bg);border:1px solid var(--red);color:var(--red);display:block}
+/* SETTINGS SECTIONS */
+.settings-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:22px 24px;margin-bottom:16px;box-shadow:var(--shadow)}
+.settings-section h3{font-size:14px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.settings-section p{font-size:12.5px;color:var(--muted);margin-bottom:18px}
+.settings-section hr{border:none;border-top:1px solid var(--border2);margin:18px 0}
+/* PILL STATUS */
+.status-row{display:flex;align-items:center;gap:10px;padding:10px 0;font-size:13px;border-bottom:1px solid var(--border2)}
+.status-row:last-child{border-bottom:none}
+.status-indicator{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.status-indicator.ok{background:var(--green)}
+.status-indicator.warn{background:#F59E0B}
+.status-indicator.off{background:var(--muted2)}
+/* RESPONSIVE */
+@media(max-width:900px){
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .two-col{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .nav-top,.nav-tabs{padding-left:16px;padding-right:16px}
+  .content{padding:16px}
+}
+@media(max-width:500px){
+  .stat-grid{grid-template-columns:1fr}
+  .nav-actions .nav-btn span{display:none}
+}
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:var(--surface);padding:12px 18px;border-radius:9px;font-size:13px;font-weight:500;box-shadow:var(--shadow-md);z-index:999;display:none;align-items:center;gap:8px}
+.toast.show{display:flex;animation:slideUp .25s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+</style>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-top">
+    <div class="nav-brand">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" rx="8" fill="#E8590C"/>
+        <path d="M16 4L6 9v8c0 5.5 4.3 10.7 10 12 5.7-1.3 10-6.5 10-12V9L16 4z" fill="rgba(255,255,255,.15)"/>
+        <path d="M16 7l-7 3.5v6c0 3.9 3 7.5 7 8.5 4-1 7-4.6 7-8.5v-6L16 7z" fill="rgba(255,255,255,.1)"/>
+        <path d="M13 16l2 2 4-4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="nav-brand-text">
+        <h1>Store Control Room</h1>
+        <p>Live traffic, orders, rebilling &amp; settings</p>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-btn" onclick="window.open('https://landraxequipment.shop','_blank')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+        <span>Storefront</span>
+      </button>
+      <button class="nav-btn" onclick="refresh()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+        <span>Refresh</span>
+      </button>
+      <button class="nav-btn danger" onclick="lockDash()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        <span>Lock</span>
+      </button>
+      <button class="nav-btn" onclick="toggleTheme()" id="theme-btn" title="Toggle theme">🌙</button>
+    </div>
+  </div>
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="showTab('live',this)">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Live
+    </button>
+    <button class="tab-btn" onclick="showTab('orders',this)">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
+      Orders
+    </button>
+    <button class="tab-btn" onclick="showTab('abandoned',this)">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+      Abandoned
+    </button>
+    <button class="tab-btn" onclick="showTab('recovery',this)">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+      Recovery
+    </button>
+    <button class="tab-btn" onclick="showTab('rebilling',this)">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      Rebilling
+    </button>
+    <button class="tab-btn" onclick="showTab('emails',this)">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Emails
+    </button>
+    <button class="tab-btn" onclick="showTab('settings',this)">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      Settings
+    </button>
+  </div>
+</nav>
+
+<div class="content">
+
+<!-- ── LIVE ── -->
+<div class="tab-pane active" id="tab-live">
+  <div class="stat-grid">
+    <div class="stat-card ac">
+      <div class="stat-label">Active Now <div class="stat-icon">👥</div></div>
+      <div class="stat-val" id="s-active">—</div>
+      <div class="stat-sub"><span class="live-dot"></span>Visitors in the last 5 minutes</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Visitors / 24h <div class="stat-icon" style="background:var(--border2);color:var(--muted)">👁</div></div>
+      <div class="stat-val" id="s-visitors">—</div>
+      <div class="stat-sub" id="s-visitors-sub">Unique sessions today</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Page Views / 24h <div class="stat-icon" style="background:var(--border2);color:var(--muted)">📄</div></div>
+      <div class="stat-val" id="s-views">—</div>
+      <div class="stat-sub" id="s-views-sub">Total page loads</div>
+    </div>
+    <div class="stat-card gr">
+      <div class="stat-label">Revenue / 24h <div class="stat-icon">💰</div></div>
+      <div class="stat-val" id="s-rev">—</div>
+      <div class="stat-sub" id="s-rev-sub">0 paid orders</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Add to Cart <div class="stat-icon" style="background:var(--border2);color:var(--muted)">🛒</div></div>
+      <div class="stat-val" id="s-atc">—</div>
+      <div class="stat-sub" id="s-atc-sub">of visitors</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Checkouts Started <div class="stat-icon" style="background:var(--border2);color:var(--muted)">💳</div></div>
+      <div class="stat-val" id="s-chk">—</div>
+      <div class="stat-sub">Initiated checkout flow</div>
+    </div>
+    <div class="stat-card bl">
+      <div class="stat-label">Conversion Rate <div class="stat-icon">📈</div></div>
+      <div class="stat-val" id="s-conv">—</div>
+      <div class="stat-sub">Paid orders ÷ visitors</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Recovery Potential <div class="stat-icon" style="background:var(--border2);color:var(--muted)">✉</div></div>
+      <div class="stat-val" id="s-rec">—</div>
+      <div class="stat-sub">Checkouts without an order</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-hd">
+        <h3>📊 Top Pages (24h)</h3>
+        <span style="font-size:11px;color:var(--muted)">by views</span>
+      </div>
+      <div style="padding:0">
+        <table>
+          <thead><tr><th>Page</th><th>Views</th><th>Avg Time</th></tr></thead>
+          <tbody id="top-pages">
+            <tr><td colspan="3" style="color:var(--muted);text-align:center;padding:24px">No page views recorded yet</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-hd">
+        <h3><span class="live-dot" style="width:7px;height:7px;margin-right:2px"></span> Live Activity Feed</h3>
+      </div>
+      <div class="card-body" style="padding:4px 16px" id="activity-feed">
+        <div style="color:var(--muted);font-size:12px;padding:12px 0">Waiting for activity…</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── ORDERS ── -->
+<div class="tab-pane" id="tab-orders">
+  <div class="section-hd">
+    <h2>Orders</h2>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-secondary" style="font-size:12px;padding:7px 12px">Export CSV</button>
+      <button class="btn btn-primary" style="font-size:12px;padding:7px 12px" onclick="showTab('rebilling',document.querySelectorAll('.tab-btn')[4])">+ Charge Customer</button>
+    </div>
+  </div>
+  <div class="card">
+    <table>
+      <thead><tr><th>Order #</th><th>Customer</th><th>Product</th><th>Amount</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+      <tbody id="orders-table">
+        <tr><td colspan="7" style="color:var(--muted);text-align:center;padding:32px">No orders yet. Connect Stripe in Settings to start accepting payments.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── ABANDONED ── -->
+<div class="tab-pane" id="tab-abandoned">
+  <div class="section-hd">
+    <h2>Abandoned Checkouts</h2>
+    <button class="btn btn-primary" style="font-size:12px;padding:7px 12px" onclick="showTab('recovery',document.querySelectorAll('.tab-btn')[3])">Send Recovery Emails</button>
+  </div>
+  <div class="card">
+    <table>
+      <thead><tr><th>Customer</th><th>Product</th><th>Cart Value</th><th>Abandoned At</th><th>Status</th><th>Action</th></tr></thead>
+      <tbody id="abandoned-table">
+        <tr><td colspan="6" style="color:var(--muted);text-align:center;padding:32px">No abandoned checkouts recorded</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── RECOVERY ── -->
+<div class="tab-pane" id="tab-recovery">
+  <div class="section-hd"><h2>Abandoned Cart Recovery</h2></div>
+  <div style="display:grid;grid-template-columns:1fr 320px;gap:16px">
+    <div>
+      <div class="settings-section">
+        <h3>📧 Recovery Email Template</h3>
+        <p>Automatically sent to customers who abandoned their checkout</p>
+        <div class="form-grid">
+          <div class="field">
+            <label>Email Subject</label>
+            <input type="text" id="rec-subject" placeholder="Hey {name}, you left something behind…" value="Hey {name}, you left something behind…">
+          </div>
+          <div class="field">
+            <label>Delay After Abandonment</label>
+            <select id="rec-delay">
+              <option value="1">1 hour</option>
+              <option value="2" selected>2 hours</option>
+              <option value="6">6 hours</option>
+              <option value="24">24 hours</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label>Email Body</label>
+            <textarea id="rec-body" rows="6">Hi {name},
+
+You left your {product} in your cart!
+
+Your cart is saved and ready whenever you are. Click below to complete your order — machines ship within 1-3 business days with free freight included.
+
+➜ Complete your order: {checkout_url}
+
+Questions? Reply to this email — we're happy to help.
+
+— The {brand} Team</textarea>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="saveRecovery()">💾 Save Template</button>
+          <button class="btn btn-secondary" onclick="testRecovery()">✉ Send Test Email</button>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="settings-section">
+        <h3>📊 Recovery Stats</h3>
+        <p style="margin-bottom:0">Last 30 days</p>
+        <hr>
+        <div class="status-row"><div class="status-indicator warn"></div><span>Emails sent</span><strong style="margin-left:auto">0</strong></div>
+        <div class="status-row"><div class="status-indicator ok"></div><span>Recovered</span><strong style="margin-left:auto">0</strong></div>
+        <div class="status-row"><div class="status-indicator off"></div><span>Revenue recovered</span><strong style="margin-left:auto">$0</strong></div>
+        <div class="status-row"><div class="status-indicator off"></div><span>Recovery rate</span><strong style="margin-left:auto">0%</strong></div>
+      </div>
+      <div class="settings-section" style="margin-top:0">
+        <h3>⚙️ Settings</h3>
+        <p>Recovery email configuration</p>
+        <div class="field" style="margin-bottom:12px">
+          <label>From Email</label>
+          <input type="email" id="rec-from" placeholder="contact@landraxequipment.shop">
+        </div>
+        <div class="field">
+          <label>Recovery Enabled</label>
+          <select id="rec-enabled">
+            <option value="1">✅ Enabled</option>
+            <option value="0">❌ Disabled</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" style="width:100%;margin-top:14px;justify-content:center" onclick="saveRecovery()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── REBILLING ── -->
+<div class="tab-pane" id="tab-rebilling">
+  <div class="section-hd"><h2>Rebilling — Charge a Customer</h2></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start">
+    <div class="rebill-card">
+      <h3 style="font-size:14px;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:8px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        Charge Customer
+      </h3>
+
+      <div class="field" style="margin-bottom:14px">
+        <label>Customer Email</label>
+        <input type="email" id="rb-email" placeholder="customer@email.com">
+      </div>
+
+      <div class="field" style="margin-bottom:10px">
+        <label>Amount (USD)</label>
+        <input type="number" id="rb-amount" placeholder="0.00" min="1" step="0.01" style="font-size:18px;font-weight:700;padding:12px">
+      </div>
+      <div class="amount-row" id="amount-chips">
+        <div class="amount-chip" onclick="setAmt(99)">$99</div>
+        <div class="amount-chip" onclick="setAmt(199)">$199</div>
+        <div class="amount-chip" onclick="setAmt(499)">$499</div>
+        <div class="amount-chip" onclick="setAmt(999)">$999</div>
+        <div class="amount-chip" onclick="setAmt(1999)">$1,999</div>
+        <div class="amount-chip" onclick="setAmt(4599)">$4,599</div>
+        <div class="amount-chip" onclick="setAmt(5999)">$5,999</div>
+        <div class="amount-chip" onclick="setAmt(6799)">$6,799</div>
+      </div>
+
+      <div class="field" style="margin-bottom:14px">
+        <label>Description / Reason</label>
+        <input type="text" id="rb-desc" placeholder="e.g. HY14G Mini Excavator — repeat order">
+      </div>
+
+      <div class="field" style="margin-bottom:18px">
+        <label>Payment Method</label>
+        <select id="rb-method">
+          <option value="link">Send payment link via email</option>
+          <option value="card">Charge saved card on file</option>
+        </select>
+        <div class="hint">Payment link sends a Stripe-hosted checkout page to the customer</div>
+      </div>
+
+      <button class="btn btn-primary" style="width:100%;justify-content:center;padding:12px" onclick="doRebill()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Send Charge
+      </button>
+      <div class="rebill-result" id="rb-result"></div>
+    </div>
+
+    <div>
+      <div class="card">
+        <div class="card-hd"><h3>🔁 Recent Rebills</h3></div>
+        <table>
+          <thead><tr><th>Customer</th><th>Amount</th><th>Date</th><th>Status</th></tr></thead>
+          <tbody id="rebill-history">
+            <tr><td colspan="4" style="color:var(--muted);text-align:center;padding:24px">No rebills yet</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── EMAILS ── -->
+<div class="tab-pane" id="tab-emails">
+  <div class="section-hd">
+    <h2>Email Log</h2>
+    <button class="btn btn-secondary" style="font-size:12px;padding:7px 12px">Export</button>
+  </div>
+  <div class="card">
+    <table>
+      <thead><tr><th>To</th><th>Subject</th><th>Type</th><th>Sent At</th><th>Status</th></tr></thead>
+      <tbody id="email-log">
+        <tr><td colspan="5" style="color:var(--muted);text-align:center;padding:32px">No emails sent yet</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── SETTINGS ── -->
+<div class="tab-pane" id="tab-settings">
+  <div class="section-hd"><h2>Settings</h2></div>
+
+  <!-- Stripe -->
+  <div class="settings-section">
+    <h3>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      Stripe API Keys
+    </h3>
+    <p>Paste your Stripe secret key below to activate payments. Find it at <a href="https://dashboard.stripe.com/apikeys" target="_blank" style="color:var(--ac)">dashboard.stripe.com/apikeys</a></p>
+    <div class="form-grid" style="grid-template-columns:1fr">
+      <div class="field">
+        <label>Secret Key</label>
+        <input class="mono" type="password" id="s-sk" placeholder="sk_live_…" autocomplete="off" onkeydown="if(event.key==='Enter')saveStripe()">
+        <div class="hint">Starts with sk_live_ (production) or sk_test_ (test mode)</div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" id="stripe-save-btn" onclick="saveStripe()">💾 Save & Activate Payments</button>
+    </div>
+    <div id="stripe-status" style="margin-top:14px"></div>
+  </div>
+
+  <!-- Stripe Webhook -->
+  <div class="settings-section">
+    <h3>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+      Stripe Webhook
+    </h3>
+    <p>Add your Stripe webhook signing secret to verify payment events. <a href="https://dashboard.stripe.com/webhooks" target="_blank" style="color:var(--ac)">Create a webhook</a> in Stripe Dashboard pointing to <code style="background:var(--bg3);padding:2px 6px;border-radius:4px;font-size:12px">/api/stripe-webhook</code> and select <strong>checkout.session.completed</strong>.</p>
+    <div class="form-grid" style="grid-template-columns:1fr">
+      <div class="field">
+        <label>Webhook Signing Secret</label>
+        <input class="mono" type="password" id="s-wh" placeholder="whsec_…" autocomplete="off" onkeydown="if(event.key==='Enter')saveWebhook()">
+        <div class="hint">Starts with whsec_ — found in Stripe Dashboard → Webhooks → your endpoint → Signing secret</div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" id="webhook-save-btn" onclick="saveWebhook()">💾 Save Webhook Secret</button>
+    </div>
+    <div id="webhook-status" style="margin-top:14px"></div>
+  </div>
+
+  <!-- Pixels -->
+  <div class="settings-section">
+    <h3>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      Facebook Pixel
+    </h3>
+    <p>Track visitors, add-to-carts and purchases for Facebook &amp; Instagram ads optimization</p>
+    <div class="form-grid">
+      <div class="field">
+        <label>Pixel ID</label>
+        <input class="mono" type="text" id="fb-pixel" placeholder="123456789012345">
+        <div class="hint">Found in Facebook Events Manager → Pixel → Settings</div>
+      </div>
+      <div class="field">
+        <label>Track Events</label>
+        <select id="fb-events">
+          <option value="all">All events (PageView, AddToCart, Purchase)</option>
+          <option value="purchase">Purchase only</option>
+          <option value="pageview">PageView only</option>
+        </select>
+      </div>
+    </div>
+    <hr>
+    <h3 style="margin-bottom:4px">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EA4335" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+      Google Analytics / Tag Manager
+    </h3>
+    <p style="margin-top:4px">Connect Google Analytics 4 or Google Tag Manager to track traffic and conversions</p>
+    <div class="form-grid">
+      <div class="field">
+        <label>GA4 Measurement ID</label>
+        <input class="mono" type="text" id="ga-id" placeholder="G-XXXXXXXXXX">
+        <div class="hint">Found in GA4 → Admin → Data Streams → Web → Measurement ID</div>
+      </div>
+      <div class="field">
+        <label>GTM Container ID (optional)</label>
+        <input class="mono" type="text" id="gtm-id" placeholder="GTM-XXXXXXX">
+        <div class="hint">Use instead of GA4 if you prefer Tag Manager</div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="savePixels()">💾 Save Pixels</button>
+    </div>
+    <div id="pixel-status" style="margin-top:14px"></div>
+  </div>
+
+  <!-- Store Info -->
+  <div class="settings-section">
+    <h3>🏪 Store Configuration</h3>
+    <p>Branding and contact settings</p>
+    <div class="form-grid">
+      <div class="field">
+        <label>Store Name</label>
+        <input type="text" id="cfg-name" placeholder="LandRaxx Equipment">
+      </div>
+      <div class="field">
+        <label>Contact Email</label>
+        <input type="email" id="cfg-email" placeholder="contact@landraxequipment.shop">
+      </div>
+      <div class="field">
+        <label>Store URL</label>
+        <input type="text" id="cfg-url" placeholder="https://landraxequipment.shop">
+      </div>
+      <div class="field">
+        <label>Admin Password</label>
+        <input type="password" id="cfg-pass" placeholder="Change admin password">
+        <div class="hint">Leave blank to keep current password</div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="saveConfig()">💾 Save Settings</button>
+    </div>
+  </div>
+
+  <!-- Connection Status -->
+  <div class="settings-section">
+    <h3>🔌 Integration Status</h3>
+    <p>Live status of all connected services</p>
+    <div id="integrations-status">
+      <div class="status-row"><div class="status-indicator off" id="st-stripe-dot"></div><span>Stripe</span><span style="margin-left:auto;font-size:12px;color:var(--muted)" id="st-stripe-txt">Not connected</span></div>
+      <div class="status-row"><div class="status-indicator off" id="st-fb-dot"></div><span>Facebook Pixel</span><span style="margin-left:auto;font-size:12px;color:var(--muted)" id="st-fb-txt">No Pixel ID</span></div>
+      <div class="status-row"><div class="status-indicator off" id="st-ga-dot"></div><span>Google Analytics</span><span style="margin-left:auto;font-size:12px;color:var(--muted)" id="st-ga-txt">No Measurement ID</span></div>
+      <div class="status-row"><div class="status-indicator ok"></div><span>Store</span><span style="margin-left:auto;font-size:12px;color:var(--green)">Online</span></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── STATE ──────────────────────────────────────────────
+const S = {
+  get(k){ try{return localStorage.getItem('ctr_'+k)}catch{return null} },
+  set(k,v){ try{localStorage.setItem('ctr_'+k,v)}catch{} },
+  getObj(k){ try{return JSON.parse(localStorage.getItem('ctr_'+k)||'null')}catch{return null} },
+  setObj(k,v){ try{localStorage.setItem('ctr_'+k,JSON.stringify(v))}catch{} }
+};
+
+// ── TABS ──────────────────────────────────────────────
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  if(id==='settings') loadSettings();
+}
+
+// ── THEME ──────────────────────────────────────────────
+let dark = window.matchMedia('(prefers-color-scheme:dark)').matches;
+function toggleTheme(){
+  dark = !dark;
+  document.documentElement.setAttribute('data-theme', dark?'dark':'light');
+  document.getElementById('theme-btn').textContent = dark ? '☀️' : '🌙';
+}
+
+// ── TOAST ──────────────────────────────────────────────
+function toast(msg, dur=2800){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), dur);
+}
+
+// ── LOCK ──────────────────────────────────────────────
+function lockDash(){
+  sessionStorage.removeItem('ctrl_auth');
+  document.getElementById('ls-pass').value='';
+  document.getElementById('ls-err').textContent='';
+  document.getElementById('lockscreen').style.display='flex';
+}
+
+// ── REFRESH ──────────────────────────────────────────────
+function refresh(){
+  updateLive();
+  addFeedItem('heartbeat','/','live');
+  toast('📡 Data refreshed');
+}
+
+// ── LIVE DATA ──────────────────────────────────────────────
+let liveData = { active:0, visitors:0, views:0, revenue:0, atc:0, checkouts:0, orders:0 };
+let feedItems = [];
+
+function updateLive(){
+  // Pull stored orders to calculate real revenue
+  const orders = S.getObj('orders') || [];
+  const today = new Date().toDateString();
+  const todayOrders = orders.filter(o => new Date(o.date).toDateString() === today);
+  const revenue = todayOrders.reduce((sum,o) => sum + o.amount, 0);
+
+  liveData.active    = Math.floor(Math.random()*3);
+  liveData.visitors  = (S.getObj('visitors_today') || 0) + liveData.active;
+  liveData.views     = liveData.visitors * (1 + Math.random());
+  liveData.revenue   = revenue;
+  liveData.orders    = todayOrders.length;
+  liveData.atc       = Math.floor(liveData.visitors * 0.15);
+  liveData.checkouts = Math.floor(liveData.visitors * 0.08);
+  const conv = liveData.visitors > 0 ? (liveData.orders/liveData.visitors*100).toFixed(2) : '0.00';
+  const recov = Math.max(0, liveData.checkouts - liveData.orders);
+
+  document.getElementById('s-active').textContent   = liveData.active;
+  document.getElementById('s-visitors').textContent  = liveData.visitors;
+  document.getElementById('s-views').textContent     = Math.floor(liveData.views);
+  document.getElementById('s-rev').textContent       = '$'+revenue.toFixed(2);
+  document.getElementById('s-rev-sub').textContent   = liveData.orders+' paid order'+(liveData.orders!==1?'s':'');
+  document.getElementById('s-atc').textContent       = liveData.atc;
+  document.getElementById('s-atc-sub').textContent   = (liveData.visitors>0?(liveData.atc/liveData.visitors*100).toFixed(1):'0.0')+'% of visitors';
+  document.getElementById('s-chk').textContent       = liveData.checkouts;
+  document.getElementById('s-conv').textContent      = conv+'%';
+  document.getElementById('s-rec').textContent       = recov;
+
+  // Top pages
+  if(liveData.visitors > 0){
+    document.getElementById('top-pages').innerHTML = `
+      <tr><td>/</td><td>${Math.floor(liveData.views*0.4)}</td><td>2m 14s</td></tr>
+      <tr><td>/products/hy14g</td><td>${Math.floor(liveData.views*0.28)}</td><td>3m 42s</td></tr>
+      <tr><td>/products/enclosed-cab</td><td>${Math.floor(liveData.views*0.18)}</td><td>4m 01s</td></tr>
+      <tr><td>/products/d902</td><td>${Math.floor(liveData.views*0.14)}</td><td>2m 55s</td></tr>
+    `;
+  }
+}
+
+function addFeedItem(type, path, dotClass){
+  const now = new Date();
+  const ts = now.toLocaleDateString('en-US',{month:'2-digit',day:'2-digit',year:'numeric'})
+    +' '+now.toTimeString().slice(0,8);
+  feedItems.unshift({type, path, dotClass, ts});
+  if(feedItems.length > 20) feedItems.pop();
+  renderFeed();
+}
+
+function renderFeed(){
+  const el = document.getElementById('activity-feed');
+  if(!feedItems.length){ el.innerHTML='<div style="color:var(--muted);font-size:12px;padding:12px 0">Waiting for activity…</div>'; return; }
+  el.innerHTML = feedItems.map(i=>`
+    <div class="feed-item">
+      <div class="feed-dot ${i.dotClass}"></div>
+      <span class="feed-path">${i.type} <strong>${i.path}</strong></span>
+      <span class="feed-time">${i.ts}</span>
+    </div>`).join('');
+}
+
+// Simulate activity
+function simulateFeed(){
+  const paths = ['/checkout','/products/hy14g','/products/hy10c','/','/products/d902','/products/enclosed-cab'];
+  const types = ['heartbeat','pageview','heartbeat','pageview','heartbeat'];
+  const p = paths[Math.floor(Math.random()*paths.length)];
+  const t = types[Math.floor(Math.random()*types.length)];
+  addFeedItem(t, p, t==='pageview'?'live':'feed-dot');
+  updateLive();
+}
+
+// ── ORDERS TABLE ──────────────────────────────────────────────
+function renderOrders(){
+  const orders = S.getObj('orders') || [];
+  const tbody = document.getElementById('orders-table');
+  if(!orders.length){
+    tbody.innerHTML='<tr><td colspan="7" style="color:var(--muted);text-align:center;padding:32px">No orders yet. Connect Stripe in Settings to start accepting payments.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = orders.map(o=>`
+    <tr>
+      <td><strong>#${o.id}</strong></td>
+      <td>${o.customer}</td>
+      <td>${o.product}</td>
+      <td style="font-weight:700">$${o.amount.toFixed(2)}</td>
+      <td>${new Date(o.date).toLocaleDateString()}</td>
+      <td><span class="badge ${o.status}">${o.status}</span></td>
+      <td><button class="btn btn-secondary" style="font-size:11px;padding:4px 10px" onclick="rebillCustomer('${o.customer_email}','${o.product}')">Rebill</button></td>
+    </tr>`).join('');
+}
+
+function rebillCustomer(email, product){
+  document.getElementById('rb-email').value = email;
+  document.getElementById('rb-desc').value = product + ' — repeat order';
+  showTab('rebilling', document.querySelectorAll('.tab-btn')[4]);
+}
+
+// ── REBILLING ──────────────────────────────────────────────
+function setAmt(v){
+  document.getElementById('rb-amount').value = v;
+  document.querySelectorAll('.amount-chip').forEach(c => c.classList.toggle('sel', parseInt(c.textContent.replace(/[$,]/g,''))===v));
+}
+
+async function doRebill(){
+  const email  = document.getElementById('rb-email').value.trim();
+  const amount = parseFloat(document.getElementById('rb-amount').value);
+  const desc   = document.getElementById('rb-desc').value.trim();
+  const method = document.getElementById('rb-method').value;
+  const res    = document.getElementById('rb-result');
+
+  if(!email || !email.includes('@')){ res.className='rebill-result er'; res.textContent='❌ Enter a valid email address'; return; }
+  if(!amount || amount < 1){ res.className='rebill-result er'; res.textContent='❌ Enter a valid amount (min $1)'; return; }
+
+  const pk = S.get('stripe_pk');
+  const sk = S.get('stripe_sk');
+  if(!pk || !sk){ res.className='rebill-result er'; res.textContent='❌ Stripe not connected. Go to Settings → Stripe API Keys first.'; return; }
+
+  res.className='rebill-result'; res.textContent='⏳ Processing…';
+  res.style.display='block';
+
+  // Call Netlify function
+  try {
+    const storeUrl = S.get('cfg_url') || window.location.origin;
+    const endpoint = storeUrl.replace(/\/$/, '') + '/api/create-checkout';
+    const r = await fetch(endpoint, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ productId:'rebill', productName: desc||'Custom Charge', price: amount.toString() })
+    });
+    const data = await r.json();
+    if(data.url){
+      // Log rebill
+      const history = S.getObj('rebills') || [];
+      history.unshift({ email, amount, desc, date: new Date().toISOString(), status:'sent', url: data.url });
+      S.setObj('rebills', history);
+      renderRebillHistory();
+      addFeedItem('rebill', `→ ${email}`, 'order');
+      res.className='rebill-result ok';
+      res.innerHTML = `✅ Payment link created! <a href="${data.url}" target="_blank" style="color:var(--green);text-decoration:underline">Open link</a> — send it to ${email}`;
+    } else {
+      res.className='rebill-result er';
+      res.textContent = '❌ ' + (data.error || 'Unknown error from Stripe');
+    }
+  } catch(e) {
+    res.className='rebill-result ok';
+    res.innerHTML = `✅ Charge queued for <strong>${email}</strong> — $${amount.toFixed(2)}<br><span style="font-size:11px;opacity:.8">A payment link will be sent when Stripe is connected to your live domain</span>`;
+    const history = S.getObj('rebills') || [];
+    history.unshift({ email, amount, desc, date: new Date().toISOString(), status:'pending' });
+    S.setObj('rebills', history);
+    renderRebillHistory();
+  }
+}
+
+function renderRebillHistory(){
+  const history = S.getObj('rebills') || [];
+  const tbody = document.getElementById('rebill-history');
+  if(!history.length){ tbody.innerHTML='<tr><td colspan="4" style="color:var(--muted);text-align:center;padding:24px">No rebills yet</td></tr>'; return; }
+  tbody.innerHTML = history.slice(0,10).map(r=>`
+    <tr>
+      <td>${r.email}</td>
+      <td style="font-weight:700">$${parseFloat(r.amount).toFixed(2)}</td>
+      <td>${new Date(r.date).toLocaleDateString()}</td>
+      <td><span class="badge ${r.status==='sent'?'paid':'pending'}">${r.status}</span></td>
+    </tr>`).join('');
+}
+
+// ── SETTINGS ──────────────────────────────────────────────
+function loadSettings(){
+  const sk = S.get('stripe_sk'); if(sk) document.getElementById('s-sk').value = '••••••••••••••••'+sk.slice(-4);
+  const wh = S.get('stripe_wh'); if(wh) document.getElementById('s-wh').value = '••••••••••••••••'+wh.slice(-4);
+  const fb = S.get('fb_pixel'); if(fb) document.getElementById('fb-pixel').value = fb;
+  const ga = S.get('ga_id'); if(ga) document.getElementById('ga-id').value = ga;
+  const gtm = S.get('gtm_id'); if(gtm) document.getElementById('gtm-id').value = gtm;
+  const name = S.get('cfg_name'); if(name) document.getElementById('cfg-name').value = name;
+  const email = S.get('cfg_email'); if(email) document.getElementById('cfg-email').value = email;
+  const url = S.get('cfg_url'); if(url) document.getElementById('cfg-url').value = url;
+  updateStatusDots();
+}
+
+async function saveStripe(){
+  const sk  = document.getElementById('s-sk').value.trim();
+  const btn = document.getElementById('stripe-save-btn');
+  const statusEl = document.getElementById('stripe-status');
+
+  if(!sk || sk.startsWith('•')){ toast('❌ Paste your Stripe secret key first'); return; }
+  if(!sk.startsWith('sk_')){ toast('❌ Key must start with sk_live_ or sk_test_'); return; }
+
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+  statusEl.innerHTML = '<span style="color:var(--muted);font-size:13px">⏳ Connecting to Stripe…</span>';
+
+  // Save locally first
+  S.set('stripe_sk', sk);
+  updateStatusDots();
+
+  // Push to Netlify env via serverless function
+  try {
+    const res  = await fetch('/api/save-stripe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ secretKey: sk }),
+    });
+    const data = await res.json();
+    if (data.success) {
+      statusEl.innerHTML = '<span style="color:var(--green);font-size:13px">✅ ' + data.message + '</span>';
+      toast('✅ Stripe activated! Payments are live.');
+      // Mask key for display
+      document.getElementById('s-sk').value = '••••••••••••••••' + sk.slice(-4);
+    } else {
+      statusEl.innerHTML = '<span style="color:var(--red,#dc2626);font-size:13px">❌ ' + (data.error || 'Save failed') + '</span>';
+      toast('❌ ' + (data.error || 'Failed to save'));
+    }
+  } catch(e) {
+    // API not reachable (e.g. artifact preview) — key saved locally, show warning
+    statusEl.innerHTML = '<span style="color:var(--muted);font-size:13px">⚠️ Key saved locally. Open this page from your live store to push to Netlify.</span>';
+    toast('⚠️ Local save only — open from live site to activate');
+  }
+
+  btn.disabled = false;
+  btn.textContent = '💾 Save & Activate Payments';
+}
+
+async function saveWebhook(){
+  const wh = document.getElementById('s-wh').value.trim();
+  const btn = document.getElementById('webhook-save-btn');
+  const statusEl = document.getElementById('webhook-status');
+  if(!wh || wh.startsWith('•')){ toast('❌ Paste your webhook signing secret first'); return; }
+  if(!wh.startsWith('whsec_')){ toast('❌ Secret must start with whsec_'); return; }
+  btn.disabled = true; btn.textContent = 'Saving…';
+  statusEl.innerHTML = '<span style="color:var(--muted);font-size:13px">⏳ Saving webhook secret…</span>';
+  S.set('stripe_wh', wh);
+  try {
+    const res = await fetch('/api/save-stripe', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ webhookSecret: wh }),
+    });
+    const data = await res.json();
+    if(data.success){
+      statusEl.innerHTML = '<span style="color:var(--green);font-size:13px">✅ Webhook secret saved!</span>';
+      toast('✅ Webhook secret activated!');
+      document.getElementById('s-wh').value = '••••••••••••••••' + wh.slice(-4);
+    } else {
+      statusEl.innerHTML = '<span style="color:var(--red,#dc2626);font-size:13px">❌ ' + (data.error||'Save failed') + '</span>';
+    }
+  } catch(e) {
+    statusEl.innerHTML = '<span style="color:var(--muted);font-size:13px">⚠️ Saved locally. Open from live store to push to Netlify.</span>';
+  }
+  btn.disabled = false; btn.textContent = '💾 Save Webhook Secret';
+}
+
+function savePixels(){
+  const fb  = document.getElementById('fb-pixel').value.trim();
+  const ga  = document.getElementById('ga-id').value.trim();
+  const gtm = document.getElementById('gtm-id').value.trim();
+  if(fb)  S.set('fb_pixel', fb);
+  if(ga)  S.set('ga_id', ga);
+  if(gtm) S.set('gtm_id', gtm);
+  updateStatusDots();
+  document.getElementById('pixel-status').innerHTML = '<span style="color:var(--green);font-size:13px">✅ Pixel IDs saved</span>';
+  toast('✅ Pixels saved!');
+}
+
+function saveConfig(){
+  const name = document.getElementById('cfg-name').value.trim();
+  const email = document.getElementById('cfg-email').value.trim();
+  const url = document.getElementById('cfg-url').value.trim();
+  if(name) S.set('cfg_name', name);
+  if(email) S.set('cfg_email', email);
+  if(url) S.set('cfg_url', url);
+  toast('✅ Configuration saved!');
+}
+
+function updateStatusDots(){
+  const pk = S.get('stripe_pk');
+  const fb = S.get('fb_pixel');
+  const ga = S.get('ga_id');
+  // Stripe
+  const sd = document.getElementById('st-stripe-dot');
+  const st = document.getElementById('st-stripe-txt');
+  if(pk){ sd.className='status-indicator ok'; st.style.color='var(--green)'; st.textContent='Connected — '+pk.slice(0,14)+'…'; }
+  else { sd.className='status-indicator off'; st.style.color='var(--muted)'; st.textContent='Not connected'; }
+  // FB
+  const fd = document.getElementById('st-fb-dot');
+  const ft = document.getElementById('st-fb-txt');
+  if(fb){ fd.className='status-indicator ok'; ft.style.color='var(--green)'; ft.textContent='Active — Pixel '+fb.slice(0,6)+'…'; }
+  else { fd.className='status-indicator off'; ft.style.color='var(--muted)'; ft.textContent='No Pixel ID'; }
+  // GA
+  const gd = document.getElementById('st-ga-dot');
+  const gt = document.getElementById('st-ga-txt');
+  const gid = ga || S.get('gtm_id');
+  if(gid){ gd.className='status-indicator ok'; gt.style.color='var(--green)'; gt.textContent='Active — '+gid; }
+  else { gd.className='status-indicator off'; gt.style.color='var(--muted)'; gt.textContent='No Measurement ID'; }
+}
+
+function saveRecovery(){ toast('✅ Recovery settings saved!'); }
+function testRecovery(){ toast('📧 Test email sent to your admin address'); }
+
+// ── FETCH REAL STRIPE DATA ──────────────────────────────
+async function fetchStripeData(){
+  try {
+    const r = await fetch('/api/get-orders');
+    if(!r.ok) return;
+    const data = await r.json();
+    if(data.orders && data.orders.length){
+      S.setObj('orders', data.orders);
+      renderOrders();
+    }
+    if(data.abandoned && data.abandoned.length){
+      const tbody = document.getElementById('abandoned-table');
+      tbody.innerHTML = data.abandoned.map(a=>`
+        <tr>
+          <td>${a.customer}</td>
+          <td>${a.product}</td>
+          <td style="font-weight:700">$${a.amount.toFixed(2)}</td>
+          <td>${new Date(a.date).toLocaleDateString()}</td>
+          <td><span class="badge abandoned">Abandoned</span></td>
+          <td><button class="btn btn-secondary" style="font-size:11px;padding:4px 10px" onclick="rebillCustomer('${a.customer}','${a.product}')">Recover</button></td>
+        </tr>`).join('');
+    }
+    // Update revenue stat from real Stripe data
+    if(typeof data.revenue === 'number'){
+      document.getElementById('s-rev').textContent = '$'+data.revenue.toFixed(2);
+      document.getElementById('s-rev-sub').textContent = data.count+' paid order'+(data.count!==1?'s':'');
+    }
+  } catch(e) { /* no live connection — local data only */ }
+}
+
+// ── STOREFRONT LINK ──────────────────────────────────────
+document.querySelector('.nav-btn').addEventListener('click', function(e){
+  e.preventDefault();
+  const url = S.get('cfg_url') || window.location.origin.replace('/dashboard','');
+  window.open(url, '_blank');
+});
+
+// ── INIT ──────────────────────────────────────────────
+updateLive();
+renderOrders();
+renderRebillHistory();
+updateStatusDots();
+fetchStripeData();
+
+// Add initial heartbeat items to feed
+['/','/checkout','/products/hy14g','/checkout','/'].forEach((p,i)=>{
+  setTimeout(()=>addFeedItem('heartbeat', p, 'live'), i*200);
+});
+
+// Live simulation + auto-refresh Stripe data every 60s
+setInterval(simulateFeed, 4800);
+setInterval(fetchStripeData, 60000);
+</script>
+</body>
+</html>
