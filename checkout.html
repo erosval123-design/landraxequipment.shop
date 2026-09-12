@@ -20,7 +20,7 @@ a{color:var(--brand);text-decoration:none}
 a:hover{text-decoration:underline}
 .wrap{max-width:880px;margin:0 auto;padding:0 1.2rem}
 .site-header{background:var(--bg-2);border-bottom:1px solid var(--line);padding:.9rem 0}
-.site-header .wrap{max-width:1180px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.site-header .inner{max-width:1180px;margin:0 auto;padding:0 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
 .site-logo{font-family:var(--head);font-size:1.9rem;font-weight:800;color:var(--brand);letter-spacing:.02em}
 .nav-links{display:flex;gap:1.2rem;align-items:center;font-size:.9rem;font-weight:600}
 .nav-links a{color:var(--ink-2)}
@@ -32,7 +32,7 @@ h1{font-family:var(--head);font-size:2.5rem;font-weight:800;margin-bottom:.8rem;
 .muted{color:var(--ink-2);font-size:.95rem;margin-bottom:1.5rem;line-height:1.6}
 .order-card{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem}
 .order-card h2{font-family:var(--head);font-size:1.5rem;font-weight:800;margin-bottom:1rem}
-.order-item{display:flex;justify-content:space-between;align-items:baseline;padding:.4rem 0;border-bottom:1px solid var(--line);font-size:.95rem}
+.order-item{display:flex;justify-content:space-between;align-items:baseline;padding:.4rem 0;border-bottom:1px solid var(--line);font-size:.95rem;color:var(--ink-2)}
 .order-item:last-child{border-bottom:none}
 .order-total{display:flex;justify-content:space-between;align-items:baseline;padding:.8rem 0 0;font-weight:700;font-size:1.05rem}
 .order-total .val{font-family:var(--head);font-size:2rem;color:var(--brand)}
@@ -41,21 +41,22 @@ h1{font-family:var(--head);font-size:2.5rem;font-weight:800;margin-bottom:.8rem;
 .btn--primary{background:var(--brand);color:#0b0f0d}
 .btn--primary:hover{background:#bef264}
 .btn--primary:disabled{opacity:.5;cursor:not-allowed}
+.btn--ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink);font-size:.9rem}
+.btn--ghost:hover{border-color:var(--brand);color:var(--brand);text-decoration:none}
 .formnote{font-size:.82rem;color:var(--ink-3);margin:.8rem 0 0;text-align:center;line-height:1.5}
 .paylist{list-style:none;margin:1.5rem 0 0;display:grid;gap:.5rem}
 .paylist li{display:flex;align-items:flex-start;gap:.6rem;font-size:.9rem;color:var(--ink-2)}
 .paylist li::before{content:'✓';color:var(--brand);font-weight:700;flex-shrink:0}
-.trust-badges{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.8rem}
-.trust-badge{background:var(--bg-2);border:1px solid var(--line);border-radius:10px;padding:.6rem 1rem;font-size:.82rem;color:var(--ink-2);display:flex;align-items:center;gap:.5rem}
+.trust-badges{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.8rem}
+.trust-badge{background:var(--bg-2);border:1px solid var(--line);border-radius:10px;padding:.5rem .9rem;font-size:.82rem;color:var(--ink-2);display:flex;align-items:center;gap:.4rem}
 .empty-msg{color:var(--ink-2);padding:2rem 0}
 .site-footer{border-top:1px solid var(--line);padding:2rem 0;color:var(--ink-3);font-size:.85rem;text-align:center}
 </style>
 <script src="assets/js/catalogue.js" defer></script>
-<script src="assets/js/site-config.js" defer></script>
 </head>
 <body>
 <header class="site-header">
-  <div class="wrap">
+  <div class="inner">
     <a href="index.html" class="site-logo">LandRaxx</a>
     <nav class="nav-links">
       <a href="index.html">Home</a>
@@ -68,17 +69,17 @@ h1{font-family:var(--head);font-size:2.5rem;font-weight:800;margin-bottom:.8rem;
     <div class="checkout-layout">
       <div>
         <h1>Checkout</h1>
-        <p class="muted">Payment is handled by Stripe. You will enter your delivery address, contact details and card on Stripe&#8217;s secure page &mdash; no card details are entered on or stored by this website.</p>
+        <p class="muted">Payment is handled by Stripe. You'll enter your delivery address and card on Stripe's secure page — no card details are stored on this site.</p>
         <div id="emptyCart" style="display:none">
           <p class="empty-msg">Your basket is empty. <a href="index.html">Browse machines →</a></p>
         </div>
         <div id="paySection">
           <button class="btn btn--primary" id="payBtn" disabled>Pay securely with Stripe</button>
-          <p class="formnote">You will be taken to Stripe to complete payment. Your order is not placed until payment succeeds. Stripe collects your delivery address there.</p>
+          <p class="formnote">You'll be taken to Stripe to complete payment. Your order is not placed until payment succeeds.</p>
           <ul class="paylist">
             <li>Card, Apple Pay and Google Pay accepted</li>
-            <li>Payment taken in full at checkout &mdash; no deposits, no recurring charges</li>
-            <li>An invoice is emailed with your dispatch confirmation</li>
+            <li>Payment taken in full at checkout — no deposits, no recurring charges</li>
+            <li>Invoice emailed with your dispatch confirmation</li>
           </ul>
           <div class="trust-badges">
             <div class="trust-badge">🔒 Stripe Secure</div>
@@ -95,7 +96,7 @@ h1{font-family:var(--head);font-size:2.5rem;font-weight:800;margin-bottom:.8rem;
           <span class="val" id="orderTotal">$0</span>
         </div>
         <p class="delivery-note">Free delivery to the continental US.</p>
-        <a href="cart.html" style="font-size:.85rem;color:var(--ink-3);display:block;text-align:center;margin-top:.5rem">← Edit basket</a>
+        <a href="cart.html" class="btn btn--ghost" style="margin-top:.8rem">← Edit basket</a>
       </div>
     </div>
   </div>
@@ -109,10 +110,7 @@ function fmt(p){return '$'+p.toLocaleString('en-US');}
 function init() {
   var items = getCart();
   var cat = window.CATALOGUE || {};
-  var cfg = window.SITE_CONFIG || {};
-  var links = cfg.paymentLinks || {};
 
-  // Update badge
   var n = items.reduce(function(a,i){return a+(i.qty||1);},0);
   document.querySelectorAll('.cart-count').forEach(function(el){
     el.textContent = n>0?n:''; el.style.display=n>0?'inline-flex':'none';
@@ -127,11 +125,14 @@ function init() {
 
   var total = 0;
   var rowsHtml = '';
+  var apiItems = [];
   items.forEach(function(item){
     var prod = cat[item.sku]||{};
     var price = item.price||prod.price||0;
-    total += price*(item.qty||1);
-    rowsHtml += '<div class="order-item"><span>'+item.name+' &times;'+(item.qty||1)+'</span><span>'+fmt(price*(item.qty||1))+'</span></div>';
+    var qty = item.qty||1;
+    total += price*qty;
+    rowsHtml += '<div class="order-item"><span>'+item.name+' &times;'+qty+'</span><span>'+fmt(price*qty)+'</span></div>';
+    apiItems.push({sku:item.sku, name:item.name||prod.name||item.sku, price:price, qty:qty});
   });
   rowsHtml += '<div class="order-item"><span>Delivery</span><span style="color:var(--brand)">Free</span></div>';
   document.getElementById('orderRows').innerHTML = rowsHtml;
@@ -140,31 +141,26 @@ function init() {
   var payBtn = document.getElementById('payBtn');
   payBtn.disabled = false;
   payBtn.addEventListener('click', function(){
-    // Single item → use its Payment Link
-    var link = items.length===1 ? (links[items[0].sku]||'').trim() : '';
-    if (link) {
-      var url = link + (link.indexOf('?')===-1?'?':'&') + 'client_reference_id=' + encodeURIComponent(items[0].sku);
-      window.location.href = url;
-    } else {
-      // Multi-item or no Payment Link → use first item's link or fallback to Netlify Function
-      var first = items[0];
-      var prod = cat[first.sku]||{};
-      payBtn.disabled=true; payBtn.textContent='Processing…';
-      fetch('/api/create-checkout',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({productId:first.sku,productName:prod.name||first.name,price:prod.price||first.price||0})
-      }).then(function(r){return r.json();})
-        .then(function(d){if(d.url){window.location.href=d.url;}else{throw new Error(d.error||'No URL');};})
-        .catch(function(err){
-          payBtn.disabled=false; payBtn.textContent='Pay securely with Stripe';
-          alert('Checkout error: '+(err.message||'Please try again.'));
-        });
-    }
+    payBtn.disabled = true;
+    payBtn.textContent = 'Processing…';
+    fetch('/api/create-checkout', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({items: apiItems})
+    }).then(function(r){return r.json();})
+      .then(function(d){
+        if (d.url) { window.location.href = d.url; }
+        else { throw new Error(d.error||'No checkout URL returned'); }
+      })
+      .catch(function(err){
+        payBtn.disabled = false;
+        payBtn.textContent = 'Pay securely with Stripe';
+        alert('Checkout error: '+(err.message||'Please try again.'));
+      });
   });
 }
 
-document.addEventListener('DOMContentLoaded', function(){ setTimeout(init,100); });
+document.addEventListener('DOMContentLoaded', function(){ setTimeout(init, 80); });
 </script>
 </body>
 </html>

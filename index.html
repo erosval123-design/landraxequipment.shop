@@ -1985,32 +1985,22 @@ function galSwitch(pid, idx, btn) {
   function goToPayment(sku, qty) {
     /* Add to basket first */
     addItem(sku, qty);
-    /* Look for a pre-created Stripe Payment Link */
-    var cfg = window.SITE_CONFIG || {};
-    var links = cfg.paymentLinks || {};
-    var url = (links[sku]||'').trim();
-    if (url) {
-      url += (url.indexOf('?')===-1?'?':'&')+'client_reference_id='+encodeURIComponent(sku);
-      window.location.href = url;
-    } else {
-      /* Fallback: Netlify Function */
-      var cat = window.CATALOGUE || {};
-      var prod = cat[sku] || {};
-      var btn = document.querySelector('[data-add="'+sku+'"][data-buynow]') ||
-                document.querySelector('[data-buynow-sku="'+sku+'"]');
-      var orig = btn ? btn.textContent : 'Buy now';
-      if (btn) { btn.disabled=true; btn.textContent='Processing…'; }
-      fetch('/api/create-checkout', {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({productId:sku,productName:prod.name||sku,price:prod.price||0})
-      }).then(function(r){return r.json();})
-        .then(function(d){ if(d.url){window.location.href=d.url;}else{throw new Error(d.error||'No URL');} })
-        .catch(function(err){
-          if(btn){btn.disabled=false;btn.textContent=orig;}
-          lrToast('⚠ '+(err.message||'Checkout unavailable. Try again.'));
-        });
-    }
+    /* Create Stripe Checkout Session via API */
+    var cat = window.CATALOGUE || {};
+    var prod = cat[sku] || {};
+    var btn = document.querySelector('[data-add="'+sku+'"][data-buynow]');
+    var orig = btn ? btn.textContent : 'Buy now';
+    if (btn) { btn.disabled=true; btn.textContent='Processing…'; }
+    fetch('/api/create-checkout', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({productId:sku, productName:prod.name||sku, price:prod.price||0})
+    }).then(function(r){return r.json();})
+      .then(function(d){ if(d.url){window.location.href=d.url;}else{throw new Error(d.error||'No URL');} })
+      .catch(function(err){
+        if(btn){btn.disabled=false;btn.textContent=orig;}
+        lrToast('⚠ '+(err.message||'Checkout unavailable. Try again.'));
+      });
   }
 
   /* Wire up data-add buttons */
