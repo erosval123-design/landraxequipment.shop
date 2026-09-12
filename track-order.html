@@ -3,25 +3,39 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Policies — LandRaxx</title>
-<meta name="description" content="Legal policies for LandRaxx: privacy, shipping, returns, and terms of service.">
+<title>Track Your Order — LandRaxx</title>
+<meta name="description" content="Track your LandRaxx order. Enter your tracking number or contact us for delivery status.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230c1109'/%3E%3Crect x='4' y='19' width='14' height='7' rx='2' fill='%23a3e635'/%3E%3Crect x='3' y='24' width='16' height='4' rx='2' fill='%23a3e635' opacity='.55'/%3E%3Crect x='5' y='14' width='8' height='6' rx='1.5' fill='%23a3e635'/%3E%3Cpath d='M13 16 L24 8' stroke='%23a3e635' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M24 8 L28 14' stroke='%23a3e635' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M28 14 L24 18 L26 20 L30 16Z' fill='%23a3e635'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css?v3">
 <style>
-.policies-page{max-width:900px;margin:0 auto;padding:4rem 0 6rem}
-.policies-page h1{margin-bottom:1.5rem}
-.policy-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.4rem;margin-top:2rem}
-.pcard{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:1.8rem;
-  transition:.2s;display:flex;flex-direction:column;gap:.7rem}
-.pcard:hover{border-color:var(--brand);transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.3)}
-.pcard__icon{font-size:2rem;line-height:1}
-.pcard h2{font-size:1.2rem;margin:0;color:var(--ink)}
-.pcard p{font-size:.9rem;color:var(--ink-2);margin:0;flex:1}
-.pcard a{color:var(--brand);font-size:.9rem;font-weight:600;text-decoration:none;margin-top:auto}
-.pcard a:hover{text-decoration:underline}
+.track-page{max-width:860px;margin:0 auto;padding:4rem 0 6rem}
+.track-page h1{margin-bottom:.6rem}
+.track-intro{color:var(--ink-2);max-width:58ch;margin-bottom:2.8rem;font-size:1.02rem;line-height:1.75}
+.track-steps{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:3rem}
+@media(max-width:640px){.track-steps{grid-template-columns:1fr}}
+.track-step{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:1.8rem;display:flex;flex-direction:column;gap:.8rem}
+.track-step__num{font-family:var(--head);font-size:3rem;font-weight:700;color:var(--brand);line-height:1}
+.track-step h3{font-size:1.1rem;margin:0}
+.track-step p{color:var(--ink-2);font-size:.93rem;line-height:1.7;margin:0}
+.track-form-card{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:2rem;margin-bottom:2.5rem}
+.track-form-card h2{font-size:1.25rem;margin-bottom:1.4rem}
+.track-row{display:grid;grid-template-columns:1fr auto;gap:.8rem;align-items:end}
+@media(max-width:560px){.track-row{grid-template-columns:1fr}}
+.track-form-card label{display:block;font-size:.88rem;font-weight:600;color:var(--ink-2);margin-bottom:.35rem;text-transform:uppercase;letter-spacing:.06em}
+.track-form-card input{width:100%;padding:.75rem 1rem;background:var(--bg-3);border:1px solid var(--line);border-radius:8px;color:var(--ink);font:inherit;font-size:.97rem;transition:.15s}
+.track-form-card input:focus{outline:none;border-color:var(--brand);background:var(--bg)}
+.carrier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.2rem}
+@media(max-width:600px){.carrier-grid{grid-template-columns:1fr 1fr}}
+.carrier-card{display:flex;flex-direction:column;gap:.5rem;align-items:center;justify-content:center;
+  padding:1.2rem 1rem;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);
+  text-align:center;text-decoration:none;color:var(--ink);transition:.18s;font-size:.88rem;font-weight:600}
+.carrier-card:hover{border-color:var(--brand);background:var(--brand-soft);color:var(--brand)}
+.carrier-icon{font-size:1.6rem}
+.track-contact{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
+.track-contact p{margin:0;color:var(--ink-2);font-size:.95rem}
+.track-contact strong{color:var(--ink)}
 </style>
 </head>
 <body>
@@ -46,35 +60,59 @@
   </div>
 </header>
 <main id="main">
-<div class="wrap policies-page">
-  <p class="eyebrow">Legal</p>
-  <h1>Our Policies</h1>
-  <p class="muted" style="max-width:55ch">Everything you need to know about how we handle your data, orders, and returns. Click any policy below to read the full details.</p>
-  <div class="policy-cards">
-    <div class="pcard">
-      <div class="pcard__icon">&#128274;</div>
-      <h2>Privacy Policy</h2>
-      <p>How we collect, use, and protect your personal information.</p>
-      <a href="privacy.html">Read Privacy Policy &rarr;</a>
+<div class="wrap track-page">
+  <p class="eyebrow">Delivery status</p>
+  <h1>Track Your Order</h1>
+  <p class="track-intro">After your machine ships you will receive a confirmation email with your carrier and tracking number. Use the number below to follow your delivery in real time.</p>
+
+  <div class="track-steps">
+    <div class="track-step">
+      <div class="track-step__num">01</div>
+      <h3>Check your email</h3>
+      <p>We send a shipping confirmation email with your tracking number and carrier name within 1–2 business days of dispatch.</p>
     </div>
-    <div class="pcard">
-      <div class="pcard__icon">&#128666;</div>
-      <h2>Shipping Policy</h2>
-      <p>Free freight shipping to the contiguous US. Delivery times and carrier info.</p>
-      <a href="shipping.html">Read Shipping Policy &rarr;</a>
+    <div class="track-step">
+      <div class="track-step__num">02</div>
+      <h3>Enter tracking number</h3>
+      <p>Paste your tracking number in the box below, then click the carrier link. Heavy equipment ships via freight carrier.</p>
     </div>
-    <div class="pcard">
-      <div class="pcard__icon">&#8634;</div>
-      <h2>Returns &amp; Refunds</h2>
-      <p>30-day return window, eligibility requirements, and refund process.</p>
-      <a href="returns.html">Read Returns Policy &rarr;</a>
+  </div>
+
+  <div class="track-form-card">
+    <h2>Track via carrier</h2>
+    <label for="trk-num">Tracking number (from your confirmation email)</label>
+    <div class="track-row">
+      <input id="trk-num" type="text" placeholder="e.g. 1Z999AA10123456784" autocomplete="off" spellcheck="false">
     </div>
-    <div class="pcard">
-      <div class="pcard__icon">&#128220;</div>
-      <h2>Terms of Service</h2>
-      <p>General terms governing your use of our site and purchase of products.</p>
-      <a href="terms.html">Read Terms of Service &rarr;</a>
+    <p style="margin:.9rem 0 .6rem;color:var(--ink-2);font-size:.88rem">Select your carrier — the tracking number is in your shipping confirmation email:</p>
+    <div class="carrier-grid">
+      <a class="carrier-card" id="lnk-ups" href="https://www.ups.com/track?tracknum=" target="_blank" rel="noopener">
+        <span class="carrier-icon">🟫</span>UPS Freight
+      </a>
+      <a class="carrier-card" id="lnk-fedex" href="https://www.fedex.com/fedextrack/?trknbr=" target="_blank" rel="noopener">
+        <span class="carrier-icon">🟪</span>FedEx Freight
+      </a>
+      <a class="carrier-card" id="lnk-od" href="https://www.odfl.com/us/en/tools/track.html#" target="_blank" rel="noopener">
+        <span class="carrier-icon">🟩</span>Old Dominion
+      </a>
+      <a class="carrier-card" id="lnk-xpo" href="https://www.xpo.com/tools/track-shipment?pro=" target="_blank" rel="noopener">
+        <span class="carrier-icon">🟥</span>XPO Logistics
+      </a>
+      <a class="carrier-card" id="lnk-rl" href="https://www.rlcarriers.com/freight/shipping/track-a-shipment?pro=" target="_blank" rel="noopener">
+        <span class="carrier-icon">🟦</span>R+L Carriers
+      </a>
+      <a class="carrier-card" id="lnk-saia" href="https://www.saia.com/track/details;pros=" target="_blank" rel="noopener">
+        <span class="carrier-icon">🟧</span>SAIA Freight
+      </a>
     </div>
+  </div>
+
+  <div class="track-contact">
+    <div>
+      <p><strong>Can't find your tracking number?</strong></p>
+      <p>Email us your order number and we'll look it up for you.</p>
+    </div>
+    <a class="btn btn--ghost" href="mailto:contact@landraxequipment.shop?subject=Order tracking request">Email us</a>
   </div>
 </div>
 </main>
@@ -122,5 +160,28 @@
 <script src="assets/js/catalogue.js?v1"></script>
 <script src="assets/js/script.js?v1"></script>
 <script>document.querySelectorAll('[data-year]').forEach(function(el){el.textContent=new Date().getFullYear();});</script>
+
+<script>
+(function(){
+  var inp = document.getElementById('trk-num');
+  var links = {
+    'lnk-ups':   'https://www.ups.com/track?tracknum=',
+    'lnk-fedex': 'https://www.fedex.com/fedextrack/?trknbr=',
+    'lnk-od':    'https://www.odfl.com/us/en/tools/track.html#',
+    'lnk-xpo':   'https://www.xpo.com/tools/track-shipment?pro=',
+    'lnk-rl':    'https://www.rlcarriers.com/freight/shipping/track-a-shipment?pro=',
+    'lnk-saia':  'https://www.saia.com/track/details;pros='
+  };
+  function updateLinks(){
+    var n = inp.value.trim();
+    Object.keys(links).forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.href = links[id] + encodeURIComponent(n);
+    });
+  }
+  inp.addEventListener('input', updateLinks);
+  updateLinks();
+})();
+</script>
 </body>
 </html>
