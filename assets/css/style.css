@@ -45,18 +45,24 @@ p{margin:0 0 1rem}
 .topbar{background:var(--brand);color:var(--brand-ink);font-weight:700;font-size:.82rem;letter-spacing:.03em}
 .topbar__in{display:flex;gap:1.6rem;justify-content:center;flex-wrap:wrap;padding:.55rem 0}
 .topbar span{display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap}
-.header{position:sticky;top:0;z-index:60;background:rgba(11,15,13,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.header__in{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.85rem 0}
-.logo{display:flex;align-items:center;gap:.6rem;font-family:var(--head);font-size:1.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.01em}
+/* ── redesigned header/nav ─────────────────────────────────────────────── */
+.header{position:sticky;top:0;z-index:60;background:#0c1109;border-bottom:2.5px solid var(--brand);box-shadow:0 4px 32px rgba(0,0,0,.55)}
+.header__in{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 0}
+.logo{display:flex;align-items:center;gap:.7rem;font-family:var(--head);font-size:1.85rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;line-height:1}
 .logo b{color:var(--brand);font-weight:700}
-.logo__mark{width:34px;height:34px;flex:0 0 34px}
-.nav{display:flex;align-items:center;gap:1.7rem}
-.nav a{font-weight:600;font-size:.95rem;color:var(--ink-2);transition:.15s}
-.nav a:hover,.nav a[aria-current="page"]{color:var(--brand)}
-/* the basket is a button, not a nav link -- .nav a would otherwise repaint its
-   label in the muted link colour and leave it unreadable on the brand fill */
+.logo__mark{width:38px;height:38px;flex:0 0 38px}
+/* nav link strip */
+.nav{display:flex;align-items:center;gap:.2rem}
+.nav>a:not(.btn){
+  font-family:var(--head);font-weight:700;font-size:1rem;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--ink-2);padding:.45rem .85rem;border-radius:8px;transition:.16s;position:relative}
+.nav>a:not(.btn):hover{color:var(--ink);background:rgba(163,230,53,.1)}
+.nav>a:not(.btn)[aria-current="page"]{color:var(--brand);background:rgba(163,230,53,.08)}
+/* basket button */
+.nav__cart{margin-left:.6rem;font-family:var(--head);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
 .nav a.btn--primary,.nav a.btn--primary:hover{color:var(--brand-ink)}
 .nav a.btn--ghost,.nav a.btn--ghost:hover{color:var(--brand)}
+/* hamburger */
 .burger{display:none;background:none;border:0;padding:.4rem;cursor:pointer}
 .burger span{display:block;width:26px;height:2px;background:var(--ink);margin:5px 0;transition:.25s}
 .burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -64,11 +70,10 @@ p{margin:0 0 1rem}
 .burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 @media(max-width:900px){
   .burger{display:block}
-  .nav{position:fixed;inset:auto 0 0 0;top:0;height:100dvh;background:var(--bg-2);flex-direction:column;justify-content:center;
-    gap:1.6rem;transform:translateX(-100%);transition:transform .3s ease,visibility .3s;z-index:70;
-    visibility:hidden}
+  .nav{position:fixed;inset:auto 0 0 0;top:0;height:100dvh;background:#0c1109;flex-direction:column;justify-content:center;
+    gap:1.4rem;transform:translateX(-100%);transition:transform .3s ease,visibility .3s;z-index:70;visibility:hidden}
   .nav.open{transform:none;visibility:visible}
-  .nav a{font-size:1.35rem;font-family:var(--head);text-transform:uppercase}
+  .nav>a:not(.btn){font-size:1.6rem;padding:.6rem 1.2rem;width:100%;text-align:center}
   .nav .btn{margin-top:.6rem}
 }
 

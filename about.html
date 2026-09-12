@@ -3,18 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Checkout — LandRaxx</title>
-<meta name="description" content="Secure checkout powered by Stripe.">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="LandRaxx">
-<meta property="og:title" content="Checkout — LandRaxx">
-<meta property="og:description" content="Secure checkout powered by Stripe.">
-<meta name="theme-color" content="#0b0f0d">
+<title>About — LandRaxx</title>
+<meta name="description" content="About LandRaxx — US supplier of mini excavators and compact construction equipment. In-stock machines, honest specs, free continental US delivery.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231a2a1a'/%3E%3Crect x='4' y='19' width='14' height='7' rx='2' fill='%23a3e635'/%3E%3Crect x='3' y='24' width='16' height='4' rx='2' fill='%23a3e635' opacity='.55'/%3E%3Crect x='5' y='14' width='8' height='6' rx='1.5' fill='%23a3e635'/%3E%3Cpath d='M13 16 L24 8' stroke='%23a3e635' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M24 8 L28 14' stroke='%23a3e635' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M28 14 L24 18 L26 20 L30 16Z' fill='%23a3e635'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css?v3">
+<style>
+.about-page{max-width:800px;margin:0 auto;padding:4rem 0 6rem}
+.about-page h1{margin-bottom:1rem}
+.about-page p{color:var(--ink-2);line-height:1.8;font-size:1rem;margin-bottom:1.3rem}
+.about-vals{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.2rem;margin:2.5rem 0}
+.val{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem}
+.val__num{font-family:var(--head);font-size:2.5rem;font-weight:700;color:var(--brand);line-height:1}
+.val p{margin:.3rem 0 0;font-size:.88rem;color:var(--ink-2)}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -37,48 +41,28 @@
   </div>
 </header>
 <main id="main">
-<section class="pagehead"><div class="wrap">
-  <nav class="crumbs"><a href="index.html">Home</a> / <a href="cart.html">Basket</a> / <span>Checkout</span></nav>
-  <h1>Checkout</h1>
-  <p class="muted" style="max-width:64ch">Payment is handled by Stripe. You will enter your delivery
-     address, contact details and card on Stripe's secure page &mdash; no card details are entered on
-     or stored by this website.</p>
-</div></section>
-<section><div class="wrap cartlayout">
-  <div>
-    <div class="checkout-panel">
-      <h2>Your order</h2>
-      <div id="checkoutItems" class="checkitems"></div>
-      <div id="payReady" hidden>
-        <button class="btn btn--primary btn--lg btn--block" id="payBtn">
-          Pay securely with Stripe</button>
-        <p class="formnote" style="margin-top:.9rem">You will be taken to Stripe to complete payment.
-          Your order is not placed until payment succeeds. Stripe collects your delivery address there.</p>
-      </div>
-      <div class="result" id="ckResult" role="status"></div>
-      <ul class="paylist">
-        <li>Card, Apple&nbsp;Pay and Google&nbsp;Pay accepted</li>
-        <li>Payment taken in full at checkout &mdash; no deposits, no recurring charges</li>
-        <li>An invoice is emailed with your dispatch confirmation</li>
-      </ul>
-    </div>
-    <p class="formnote">Questions before you pay? Email
-      <a href="mailto:sales@landraxequipment.shop">sales@landraxequipment.shop</a> or call <a href="tel:+18005263729">+1 800 526 3729</a>.</p>
+<div class="wrap about-page">
+  <p class="eyebrow">About us</p>
+  <h1>LandRaxx</h1>
+  <p>LandRaxx is a Houston-based supplier of mini excavators and compact construction equipment, serving contractors, landscapers, utility crews, and owner-operators across the contiguous United States.</p>
+  <p>We source quality compact machines and ship them directly to job sites — no dealer markup, no showroom overhead. Every machine we list is in stock and ready to ship.</p>
+  <p>Our team understands what contractors need: accurate specs, honest pricing, and equipment that actually shows up. We back every machine with a 2-year warranty and offer free continental US freight delivery.</p>
+
+  <div class="about-vals">
+    <div class="val"><div class="val__num">2-Yr</div><p>Warranty on every machine</p></div>
+    <div class="val"><div class="val__num">Free</div><p>Continental US freight delivery</p></div>
+    <div class="val"><div class="val__num">30</div><p>Day return policy</p></div>
+    <div class="val"><div class="val__num">US</div><p>Based in Houston, TX</p></div>
   </div>
-  <aside class="summary">
-    <h2>Order summary</h2>
-    <dl>
-      <div><dt>Subtotal</dt><dd data-sum-net>$0</dd></div>
-      <div><dt>Delivery (continental US)</dt><dd>Free</dd></div>
-      <div class="total"><dt>Total to pay</dt><dd data-sum-total>$0</dd></div>
-    </dl>
-    <a class="btn btn--ghost btn--block" href="cart.html">Back to basket</a>
-    <ul class="minipolicy">
-      <li><a href="mailto:sales@landraxequipment.shop">30-day returns</a></li>
-      <li><a href="mailto:sales@landraxequipment.shop">Contact us</a></li>
-    </ul>
-  </aside>
-</div></section>
+
+  <h2>Contact Information</h2>
+  <p>
+    <strong>LandRaxx</strong><br>
+    Houston, TX 77001, United States<br>
+    Email: <a href="mailto:sales@landraxequipment.shop" style="color:var(--brand)">sales@landraxequipment.shop</a><br>
+    Phone: <a href="tel:+18005263729" style="color:var(--brand)">+1 800 526 3729</a>
+  </p>
+</div>
 </main>
 <footer class="footer">
   <div class="wrap">
