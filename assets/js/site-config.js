@@ -8,10 +8,11 @@ window.SITE_CONFIG = {
 
   business: {
     company:   "LandRaxx",
-    street:    "",
-    city:      "Houston",
-    state:     "TX",
-    zip:       "77001",
+    street:    "627 Gates Ave",
+    city:      "Brooklyn, NY",
+    state:     "NY",
+    zip:       "11221",
+    postcode:  "11221",
     phone:     "+1 800 526 3729"
   },
 
