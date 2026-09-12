@@ -104,7 +104,9 @@ section{padding:4rem 0}
 
 .card{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.2s ease;display:flex;flex-direction:column}
 .card:hover{border-color:#3c5a3f;transform:translateY(-4px)}
-.card__media{position:relative;background:var(--bg-3)}
+.card__media{position:relative;background:#fff;overflow:hidden;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center}
+.card__media a{display:block;width:100%;height:100%}
+.card__media img{width:100%;height:100%;object-fit:contain;display:block}
 .card__tag{position:absolute;top:.9rem;left:.9rem;background:var(--brand);color:var(--brand-ink);font-size:.72rem;font-weight:800;
   letter-spacing:.08em;padding:.34rem .7rem;border-radius:999px;text-transform:uppercase}
 .card__body{padding:1.4rem;display:flex;flex-direction:column;gap:.6rem;flex:1}
