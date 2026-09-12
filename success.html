@@ -1,30 +1,96 @@
-<title>Order Confirmed — LandRaxx Equipment</title>
-<style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;background:#0d0d0d;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;text-align:center}
-  .wrap{max-width:480px}
-  .icon{font-size:64px;margin-bottom:24px;display:block}
-  h1{font-family:'Arial Black',sans-serif;font-size:32px;font-weight:900;margin-bottom:12px;color:#4ade80}
-  p{color:#888;font-size:16px;line-height:1.6;margin-bottom:32px}
-  .btn{display:inline-block;background:#C91B1B;color:#fff;text-decoration:none;padding:14px 32px;border-radius:8px;font-weight:700;font-size:15px}
-  .info{background:#111;border:1px solid #222;border-radius:12px;padding:20px;margin-bottom:24px;text-align:left}
-  .info p{color:#aaa;font-size:13px;margin-bottom:0}
-  .info strong{color:#fff}
-</style>
-<div class="wrap">
-  <span class="icon">✅</span>
-  <h1>Order Confirmed!</h1>
-  <div class="info">
-    <p><strong>What happens next:</strong></p>
-    <p style="margin-top:8px">• You'll receive an email confirmation from Stripe<br>
-    • Our team will contact you within 1 business day to confirm delivery details<br>
-    • Your machine ships within 1–3 business days<br>
-    • Estimated delivery: 7–12 business days after shipment</p>
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Order confirmed — LandRaxx</title>
+<meta name="description" content="Your order has been placed successfully.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LandRaxx">
+<meta property="og:title" content="Order confirmed — LandRaxx">
+<meta property="og:description" content="Your order has been placed successfully.">
+<meta name="theme-color" content="#0b0f0d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231f5c39'/%3E%3Cpath d='M16 6v20M16 12l6-5M16 17l-6-5M16 22l6-5' stroke='%23a3e635' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css?v1">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="topbar"><div class="wrap topbar__in"><span>&#128666; Free continental US delivery</span><span>&#8634; 30-day returns</span><span>&#128737; 2-year warranty</span><span>&#9993; sales@landraxequipment.shop</span></div></div>
+<header class="header">
+  <div class="wrap header__in">
+    <a class="logo" href="index.html"><svg class="logo__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 2 L27 8 v10 c0 6-5 10-11 12C10 28 5 24 5 18V8z" fill="#1f5c39" stroke="#a3e635" stroke-width="1.6"/><path d="M16 8 v14 M16 13 l5-4 M16 17 l-5-4 M16 21 l5-4" stroke="#a3e635" stroke-width="1.8" stroke-linecap="round"/></svg><span>Land<b>Raxx</b></span></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="index.html#machines">Machines</a>
+      <a href="dashboard.html">Admin</a>
+      <a class="btn btn--primary nav__cart" href="cart.html">Basket <span data-cart-count>0</span></a>
+    </nav>
+    <div class="header__right">
+      <a class="cartlink" href="cart.html" aria-label="Basket">&#128722;<span class="cartbadge" data-cart-count>0</span></a>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span></button>
+    </div>
   </div>
-  <p>Questions? Email us at <strong>contact@landraxequipment.shop</strong></p>
-  <a href="/" class="btn">← Back to Store</a>
-</div>
+</header>
+<main id="main">
+<section class="pagehead" style="padding:5rem 0;text-align:center"><div class="wrap">
+  <p style="font-size:4rem;margin-bottom:1rem">&#10003;</p>
+  <h1>Order confirmed</h1>
+  <p class="muted" style="max-width:52ch;margin-inline:auto">Thank you for your order. Stripe has emailed a receipt to the address you provided at checkout. We will send a shipping notification when your machine leaves our warehouse.</p>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem">
+    <a class="btn btn--primary btn--lg" href="index.html">Back to home</a>
+    <a class="btn btn--ghost btn--lg" href="mailto:sales@landraxequipment.shop">Email us</a>
+  </div>
+</div></section>
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <a class="logo" href="index.html"><svg class="logo__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 2 L27 8 v10 c0 6-5 10-11 12C10 28 5 24 5 18V8z" fill="#1f5c39" stroke="#a3e635" stroke-width="1.6"/><path d="M16 8 v14 M16 13 l5-4 M16 17 l-5-4 M16 21 l5-4" stroke="#a3e635" stroke-width="1.8" stroke-linecap="round"/></svg><span>Land<b>Raxx</b></span></a>
+        <p class="muted" style="margin-top:1rem;max-width:38ch;font-size:.93rem">US supplier of mini excavators and compact construction equipment. In-stock machines, honest specs, free continental US delivery.</p>
+        <p class="muted" style="font-size:.88rem;line-height:1.8">
+          <strong style="color:var(--ink)" data-biz="company">LandRaxx</strong><br>
+          <span data-biz-addr>Houston, TX 77001, United States</span><br>
+          <a href="mailto:sales@landraxequipment.shop">sales@landraxequipment.shop</a><br>
+          <a href="tel:+18005263729">+1 800 526 3729</a>
+        </p>
+      </div>
+      <div><h4>Machines</h4><ul><li><a href="hy14g-mini-excavator.html">HY14G Mini Excavator</a></li>
+<li><a href="hy10c-mini-excavator.html">HY10C Mini Excavator</a></li>
+<li><a href="d902-diesel-excavator.html">D902 Diesel Excavator</a></li>
+<li><a href="enclosed-cab-excavator.html">Enclosed Cab Excavator</a></li></ul></div>
+      <div><h4>Customer service</h4><ul>
+        <li><a href="mailto:sales@landraxequipment.shop">Contact us</a></li>
+        <li><a href="cart.html">Your basket</a></li>
+        <li><a href="dashboard.html">Admin</a></li>
+      </ul></div>
+      <div><h4>Policies</h4><ul>
+        <li><a href="success.html">Order confirmed</a></li>
+        <li><a href="cart.html">Basket</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+      </ul></div>
+    </div>
+    <div class="footer__pay">
+      <span class="muted">We accept</span>
+      <span class="payico" title="Visa" aria-label="Visa"><svg viewBox="0 0 48 30" role="img"><rect width="48" height="30" rx="4" fill="#fff"/><text x="24" y="20" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-style="italic" font-weight="700" font-size="13" fill="#1a1f71">VISA</text></svg></span><span class="payico" title="Mastercard" aria-label="Mastercard"><svg viewBox="0 0 48 30" role="img"><rect width="48" height="30" rx="4" fill="#fff"/><circle cx="19" cy="15" r="8.5" fill="#eb001b"/><circle cx="29" cy="15" r="8.5" fill="#f79e1b"/><path d="M24 8.7a8.5 8.5 0 0 0 0 12.6 8.5 8.5 0 0 0 0-12.6z" fill="#ff5f00"/></svg></span><span class="payico" title="American Express" aria-label="American Express"><svg viewBox="0 0 48 30" role="img"><rect width="48" height="30" rx="4" fill="#2e77bc"/><text x="24" y="19" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="10" fill="#fff">AMEX</text></svg></span><span class="payico" title="Apple Pay and Google Pay" aria-label="Apple Pay and Google Pay"><svg viewBox="0 0 48 30" role="img"><rect width="48" height="30" rx="4" fill="#111"/><g fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><path d="M17 11.5a7 7 0 0 1 0 7"/><path d="M20.5 9a11 11 0 0 1 0 12"/><path d="M24 6.5a15 15 0 0 1 0 17"/></g><text x="35" y="19" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="9" fill="#fff">PAY</text></svg></span>
+    </div>
+    <div class="footer__bot">
+      <span>&copy; <span data-year></span> LandRaxx. All rights reserved.</span>
+      <span>All prices in USD. LandRaxx is an independent supplier not affiliated with any equipment manufacturer.</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/site-config.js?v1"></script>
+<script src="assets/js/catalogue.js?v1"></script>
+<script src="assets/js/script.js?v1"></script>
 <script>
-  const p = new URLSearchParams(location.search).get('product');
-  if(p) document.querySelector('h1').insertAdjacentHTML('afterend', `<p style="color:#aaa;margin-bottom:16px;font-size:14px">Your <strong style="color:#fff">${p}</strong> order is confirmed.</p>`);
+// Clear the basket after a successful order
+try { localStorage.removeItem('basket.v1'); } catch(e) {}
+document.querySelectorAll('[data-year]').forEach(function(el){el.textContent=new Date().getFullYear();});
 </script>
+</body>
+</html>

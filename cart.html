@@ -1,176 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Basket — LandRaxx</title>
+<title>Your basket — LandRaxx</title>
+<meta name="description" content="Review the machines in your basket before checkout.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LandRaxx">
+<meta property="og:title" content="Your basket — LandRaxx">
+<meta property="og:description" content="Review the machines in your basket before checkout.">
+<meta name="theme-color" content="#0b0f0d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231f5c39'/%3E%3Cpath d='M16 6v20M16 12l6-5M16 17l-6-5M16 22l6-5' stroke='%23a3e635' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Inter:wght@400;500;600;700&display=swap">
-<style>
-:root {
-  --bg:#0b0f0d;--bg-2:#111a14;--bg-3:#162119;
-  --ink:#f0f5f1;--ink-2:#9bb39e;--ink-3:#6a8a6e;
-  --brand:#a3e635;--line:#2a3d2e;--red:#ef4444;
-  --head:'Barlow Condensed',sans-serif;--body:'Inter',sans-serif;
-  --radius:14px;
-}
-*,::before,::after{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1rem;line-height:1.6;min-height:100vh}
-a{color:var(--brand);text-decoration:none}
-a:hover{text-decoration:underline}
-.wrap{max-width:1180px;margin:0 auto;padding:0 1.2rem}
-.site-header{background:var(--bg-2);border-bottom:1px solid var(--line);padding:.9rem 0}
-.site-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.site-logo{font-family:var(--head);font-size:1.9rem;font-weight:800;color:var(--brand);letter-spacing:.02em}
-.nav-links{display:flex;gap:1.2rem;align-items:center;font-size:.9rem;font-weight:600}
-.nav-links a{color:var(--ink-2)}
-.nav-links a:hover{color:var(--ink)}
-.cart-badge{background:var(--brand);color:#0b0f0d;border-radius:999px;padding:.1rem .45rem;font-size:.7rem;font-weight:800;margin-left:.3rem;vertical-align:middle}
-.cartlayout{display:grid;grid-template-columns:1fr 380px;gap:2.4rem;align-items:start;padding:2.5rem 0 4rem}
-@media(max-width:860px){.cartlayout{grid-template-columns:1fr}}
-h1{font-family:var(--head);font-size:2.5rem;font-weight:800;margin-bottom:1.4rem;line-height:1.05}
-.empty-msg{color:var(--ink-2);padding:2rem 0}
-.cart-items{display:grid;gap:1rem}
-.cart-item{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:1.2rem;display:flex;gap:1.2rem;align-items:flex-start}
-.cart-item img{width:110px;height:70px;object-fit:cover;border-radius:9px;flex-shrink:0;background:var(--bg-3)}
-.cart-item__info{flex:1}
-.cart-item__name{font-weight:700;font-size:1.05rem;margin-bottom:.3rem}
-.cart-item__price{color:var(--brand);font-family:var(--head);font-size:1.5rem;font-weight:700}
-.cart-item__controls{display:flex;align-items:center;gap:.7rem;margin-top:.6rem}
-.qty-btn{background:var(--bg-3);border:1px solid var(--line);color:var(--ink);width:30px;height:30px;border-radius:6px;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center}
-.qty-display{font-weight:700;min-width:28px;text-align:center}
-.remove-btn{margin-left:auto;background:transparent;border:none;color:var(--ink-3);cursor:pointer;font-size:.85rem;text-decoration:underline}
-.remove-btn:hover{color:var(--red)}
-.order-summary{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem;position:sticky;top:96px}
-.order-summary h2{font-family:var(--head);font-size:1.6rem;font-weight:800;margin-bottom:1.2rem}
-.summary-row{display:flex;justify-content:space-between;align-items:baseline;padding:.45rem 0;border-bottom:1px solid var(--line);font-size:.95rem;color:var(--ink-2)}
-.summary-row:last-child{border-bottom:none}
-.summary-total{font-size:1.2rem;font-weight:700;color:var(--ink)}
-.summary-total .val{font-family:var(--head);font-size:2rem;color:var(--brand)}
-.btn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:800;font-size:1.1rem;letter-spacing:.04em;text-transform:uppercase;border:none;border-radius:999px;padding:.9rem 2rem;cursor:pointer;transition:.15s;text-decoration:none}
-.btn--primary{background:var(--brand);color:#0b0f0d}
-.btn--primary:hover{background:#bef264;text-decoration:none}
-.btn--ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
-.btn--ghost:hover{border-color:var(--brand);color:var(--brand);text-decoration:none}
-.btn--block{display:flex;width:100%;margin-top:1rem}
-.btn--lg{padding:1.1rem 2.4rem;font-size:1.15rem}
-.site-footer{border-top:1px solid var(--line);padding:2rem 0;color:var(--ink-3);font-size:.85rem;text-align:center}
-</style>
-<script src="assets/js/catalogue.js" defer></script>
-<script src="assets/js/site-config.js" defer></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css?v1">
 </head>
 <body>
-<header class="site-header">
-  <div class="wrap">
-    <a href="index.html" class="site-logo">LandRaxx</a>
-    <nav class="nav-links">
+<a class="skip" href="#main">Skip to content</a>
+<div class="topbar"><div class="wrap topbar__in"><span>&#128666; Free continental US delivery</span><span>&#8634; 30-day returns</span><span>&#128737; 2-year warranty</span><span>&#9993; sales@landraxequipment.shop</span></div></div>
+<header class="header">
+  <div class="wrap header__in">
+    <a class="logo" href="index.html"><svg class="logo__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 2 L27 8 v10 c0 6-5 10-11 12C10 28 5 24 5 18V8z" fill="#1f5c39" stroke="#a3e635" stroke-width="1.6"/><path d="M16 8 v14 M16 13 l5-4 M16 17 l-5-4 M16 21 l5-4" stroke="#a3e635" stroke-width="1.8" stroke-linecap="round"/></svg><span>Land<b>Raxx</b></span></a>
+    <nav class="nav" id="nav" aria-label="Main">
       <a href="index.html">Home</a>
-      <a href="cart.html">Basket <span class="cart-badge cart-count" style="display:none"></span></a>
+      <a href="index.html#machines">Machines</a>
+      <a href="dashboard.html">Admin</a>
+      <a class="btn btn--primary nav__cart" href="cart.html">Basket <span data-cart-count>0</span></a>
     </nav>
-  </div>
-</header>
-<main>
-  <div class="wrap">
-    <div class="cartlayout">
-      <div>
-        <h1>Your Basket</h1>
-        <div id="cartItems" class="cart-items">
-          <p class="empty-msg">Your basket is empty. <a href="index.html">Browse machines →</a></p>
-        </div>
-      </div>
-      <div class="order-summary" id="orderSummary" style="display:none">
-        <h2>Order Summary</h2>
-        <div id="summaryRows"></div>
-        <div class="summary-row summary-total" style="margin-top:.5rem;border-bottom:none">
-          <span>Total</span>
-          <span class="val" id="summaryTotal">$0</span>
-        </div>
-        <p style="font-size:.82rem;color:var(--ink-3);margin:.7rem 0 0">Free delivery to the continental US.</p>
-        <a href="checkout.html" class="btn btn--primary btn--lg btn--block">Proceed to Checkout →</a>
-        <a href="index.html" class="btn btn--ghost btn--block" style="margin-top:.5rem;font-size:.9rem">Continue Shopping</a>
-      </div>
+    <div class="header__right">
+      <a class="cartlink" href="cart.html" aria-label="Basket">&#128722;<span class="cartbadge" data-cart-count>0</span></a>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span></button>
     </div>
   </div>
+</header>
+<main id="main">
+<section class="pagehead"><div class="wrap">
+  <nav class="crumbs"><a href="index.html">Home</a> / <span>Basket</span></nav>
+  <h1>Your basket</h1>
+</div></section>
+<section><div class="wrap cartlayout">
+  <div>
+    <p class="cartnotice" id="cartNotice" hidden></p>
+    <div id="cartItems" class="cartitems"></div>
+    <p id="cartEmpty" class="empty">Your basket is empty.
+       <a href="index.html#machines">Browse machines</a>.</p>
+  </div>
+  <aside class="summary" id="cartSummary" hidden>
+    <h2>Order summary</h2>
+    <dl>
+      <div><dt>Subtotal</dt><dd data-sum-net>$0</dd></div>
+      <div><dt>Delivery (continental US)</dt><dd>Free</dd></div>
+      <div class="total"><dt>Total to pay</dt><dd data-sum-total>$0</dd></div>
+    </dl>
+    <a class="btn btn--primary btn--block btn--lg" href="checkout.html">Proceed to checkout</a>
+    <p class="formnote">Free delivery to the continental United States. Alaska, Hawaii and territories are quoted separately — <a href="mailto:sales@landraxequipment.shop">email us</a>.</p>
+    <ul class="minipolicy">
+      <li><a href="mailto:sales@landraxequipment.shop">30-day returns</a></li>
+      <li><a href="mailto:sales@landraxequipment.shop">Delivery info</a></li>
+    </ul>
+  </aside>
+</div></section>
 </main>
-<footer class="site-footer"><div class="wrap">&copy; 2025 LandRaxx. All rights reserved.</div></footer>
-<script>
-var CART_KEY = 'basket.v1';
-function getCart(){try{return JSON.parse(localStorage.getItem(CART_KEY)||'[]');}catch(e){return[];}}
-function saveCart(c){try{localStorage.setItem(CART_KEY,JSON.stringify(c));}catch(e){}}
-
-function fmt(p){return '$'+p.toLocaleString('en-US');}
-
-function renderCart() {
-  var items = getCart();
-  var cat = window.CATALOGUE || {};
-  var container = document.getElementById('cartItems');
-  var summary = document.getElementById('orderSummary');
-  var summaryRows = document.getElementById('summaryRows');
-  var totalEl = document.getElementById('summaryTotal');
-
-  // Update badge
-  var n = items.reduce(function(a,i){return a+(i.qty||1);},0);
-  document.querySelectorAll('.cart-count').forEach(function(el){
-    el.textContent = n>0?n:''; el.style.display=n>0?'inline-flex':'none';
-  });
-
-  if (!items.length) {
-    container.innerHTML = '<p class="empty-msg">Your basket is empty. <a href="index.html">Browse machines →</a></p>';
-    if(summary) summary.style.display='none';
-    return;
-  }
-
-  if(summary) summary.style.display='block';
-  var total = 0;
-  var html = '';
-  items.forEach(function(item, idx) {
-    var prod = cat[item.sku] || {};
-    var price = item.price || prod.price || 0;
-    var img = prod.img || 'https://placehold.co/110x70/162119/a3e635?text=Machine';
-    total += price * (item.qty||1);
-    html += '<div class="cart-item">'
-      + '<img src="'+img+'" alt="'+item.name+'" loading="lazy">'
-      + '<div class="cart-item__info">'
-      + '<div class="cart-item__name">'+item.name+'</div>'
-      + '<div class="cart-item__price">'+fmt(price)+'</div>'
-      + '<div class="cart-item__controls">'
-      + '<button class="qty-btn" onclick="changeQty('+idx+',-1)">−</button>'
-      + '<span class="qty-display">'+(item.qty||1)+'</span>'
-      + '<button class="qty-btn" onclick="changeQty('+idx+',1)">+</button>'
-      + '<button class="remove-btn" onclick="removeItem('+idx+')">Remove</button>'
-      + '</div></div></div>';
-  });
-  container.innerHTML = html;
-
-  // Summary rows
-  var rowsHtml = '';
-  items.forEach(function(item){
-    rowsHtml += '<div class="summary-row"><span>'+item.name+' &times;'+(item.qty||1)+'</span>'
-      + '<span>'+fmt((item.price||0)*(item.qty||1))+'</span></div>';
-  });
-  rowsHtml += '<div class="summary-row"><span>Delivery</span><span style="color:var(--brand)">Free</span></div>';
-  summaryRows.innerHTML = rowsHtml;
-  totalEl.textContent = fmt(total);
-}
-
-function changeQty(idx, delta) {
-  var items = getCart();
-  if (!items[idx]) return;
-  items[idx].qty = Math.max(1, (items[idx].qty||1) + delta);
-  saveCart(items);
-  renderCart();
-}
-function removeItem(idx) {
-  var items = getCart();
-  items.splice(idx,1);
-  saveCart(items);
-  renderCart();
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  // Wait for CATALOGUE to load
-  setTimeout(renderCart, 100);
-});
-</script>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <a class="logo" href="index.html"><svg class="logo__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 2 L27 8 v10 c0 6-5 10-11 12C10 28 5 24 5 18V8z" fill="#1f5c39" stroke="#a3e635" stroke-width="1.6"/><path d="M16 8 v14 M16 13 l5-4 M16 17 l-5-4 M16 21 l5-4" stroke="#a3e635" stroke-width="1.8" stroke-linecap="round"/></svg><span>Land<b>Raxx</b></span></a>
+        <p class="muted" style="margin-top:1rem;max-width:38ch;font-size:.93rem">US supplier of mini excavators and compact construction equipment. In-stock machines, honest specs, free continental US delivery.</p>
+        <p class="muted" style="font-size:.88rem;line-height:1.8">
+          <strong style="color:var(--ink)" data-biz="company">LandRaxx</strong><br>
+          <span data-biz-addr>Houston, TX 77001, United States</span><br>
+          <a href="mailto:sales@landraxequipment.shop">sales@landraxequipment.shop</a><br>
+          <a href="tel:+18005263729">+1 800 526 3729</a>
+        </p>
+      </div>
+      <div><h4>Machines</h4><ul><li><a href="hy14g-mini-excavator.html">HY14G Mini Excavator</a></li>
+<li><a href="hy10c-mini-excavator.html">HY10C Mini Excavator</a></li>
+<li><a href="d902-diesel-excavator.html">D902 Diesel Excavator</a></li>
+<li><a href="enclosed-cab-excavator.html">Enclosed Cab Excavator</a></li></ul></div>
+      <div><h4>Customer service</h4><ul>
+        <li><a href="mailto:sales@landraxequipment.shop">Contact us</a></li>
+        <li><a href="cart.html">Your basket</a></li>
+        <li><a href="dashboard.html">Admin</a></li>
+      </ul></div>
+      <div><h4>Policies</h4><ul>
+        <li><a href="success.html">Order confirmed</a></li>
+        <li><a href="cart.html">Basket</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+      </ul></div>
+    </div>
+    <div class="footer__pay">
+      <span class="muted">We accept</span>
+      <span class="payico" title="Visa" aria-label="Visa"><svg viewBox="0 0 48 30" role="img"><rect width="48" height="30" rx="4" fill="#fff"/><text x="24" y="20" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-style="italic" font-weight="700" font-size="13" fill="#1a1f71">VISA</text></svg></span><span class="payico" title="Mastercard" aria-label="Mastercard"><svg viewBox="0 0 48 30" role="img"><rect width="48" height="30" rx="4" fill="#fff"/><circle cx="19" cy="15" r="8.5" fill="#eb001b"/><circle cx="29" cy="15" r="8.5" fill="#f79e1b"/><path d="M24 8.7a8.5 8.5 0 0 0 0 12.6 8.5 8.5 0 0 0 0-12.6z" fill="#ff5f00"/></svg></span><span class="payico" title="American Express" aria-label="American Express"><svg viewBox="0 0 48 30" role="img"><rect width="48" height="30" rx="4" fill="#2e77bc"/><text x="24" y="19" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="10" fill="#fff">AMEX</text></svg></span><span class="payico" title="Apple Pay and Google Pay" aria-label="Apple Pay and Google Pay"><svg viewBox="0 0 48 30" role="img"><rect width="48" height="30" rx="4" fill="#111"/><g fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><path d="M17 11.5a7 7 0 0 1 0 7"/><path d="M20.5 9a11 11 0 0 1 0 12"/><path d="M24 6.5a15 15 0 0 1 0 17"/></g><text x="35" y="19" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="9" fill="#fff">PAY</text></svg></span>
+    </div>
+    <div class="footer__bot">
+      <span>&copy; <span data-year></span> LandRaxx. All rights reserved.</span>
+      <span>All prices in USD. LandRaxx is an independent supplier not affiliated with any equipment manufacturer.</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/site-config.js?v1"></script>
+<script src="assets/js/catalogue.js?v1"></script>
+<script src="assets/js/script.js?v1"></script>
+<script>document.querySelectorAll('[data-year]').forEach(function(el){el.textContent=new Date().getFullYear();});</script>
 </body>
 </html>
